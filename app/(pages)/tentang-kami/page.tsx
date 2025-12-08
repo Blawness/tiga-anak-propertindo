@@ -1,0 +1,70 @@
+import { buildMetadata } from "@/lib/meta";
+import ContactCard from "@/components/contact-card";
+import PageHero from "@/components/page-hero";
+import Section from "@/components/section";
+import { siteConfig } from "@/lib/site-config";
+
+export const metadata = buildMetadata({
+  title: "Tentang Kami",
+  description: siteConfig.about.currentFocus,
+});
+
+export default function AboutPage() {
+  const mailto = `mailto:${siteConfig.contact.email}`;
+
+  return (
+    <div className="space-y-12 md:space-y-16">
+      <PageHero
+        eyebrow="Tentang Kami"
+        title="Fondasi tata kelola sebelum eksekusi proyek"
+        subtitle={siteConfig.description}
+        ctaLabel="Hubungi Kami"
+        ctaHref={mailto}
+      />
+
+      <Section title="Siapa kami" description={siteConfig.about.currentFocus}>
+        <div className="grid gap-4 md:grid-cols-2">
+          {siteConfig.about.overview.map((paragraph) => (
+            <div
+              key={paragraph}
+              className="rounded-2xl border border-brand-navy/10 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(11,31,58,0.35)]"
+            >
+              <p className="text-base text-brand-navy/80">{paragraph}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section
+        title="Prinsip kerja"
+        description="Pendekatan operasional yang kami terapkan untuk menjaga akuntabilitas dan kejelasan."
+      >
+        <div className="grid gap-4 md:grid-cols-2">
+          {siteConfig.about.principles.map((item) => (
+            <div
+              key={item.title}
+              className="flex h-full flex-col gap-3 rounded-2xl border border-brand-navy/10 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(11,31,58,0.35)]"
+            >
+              <h3 className="text-xl font-semibold text-brand-dark">
+                {item.title}
+              </h3>
+              <p className="text-base text-brand-navy/80">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section
+        title="Kontak"
+        description="Kami terbuka untuk diskusi awal dan penjajakan kemitraan."
+      >
+        <ContactCard
+          email={siteConfig.contact.email}
+          whatsapp={siteConfig.contact.whatsapp}
+          description="Silakan jadwalkan percakapan; kami merespons secara terstruktur."
+        />
+      </Section>
+    </div>
+  );
+}
+
