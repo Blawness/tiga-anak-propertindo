@@ -1,4 +1,5 @@
 import CTAButton from "./cta-button";
+import { FadeIn } from "./motion";
 
 type PageHeroProps = {
   title: string;
@@ -16,23 +17,27 @@ export default function PageHero({
   ctaHref,
 }: PageHeroProps) {
   return (
-    <section className="w-full bg-white">
+    <section className="w-full bg-brand-paper">
       <div className="mx-auto flex max-w-6xl flex-col gap-5 px-6 py-14 md:py-16">
-        {eyebrow ? (
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-gold">
-            {eyebrow}
-          </p>
-        ) : null}
-        <div className="flex flex-col gap-4 md:max-w-3xl">
-          <h1 className="text-4xl font-semibold text-brand-dark md:text-5xl">
+        <FadeIn>
+          {eyebrow ? (
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">
+              {eyebrow}
+            </p>
+          ) : null}
+        </FadeIn>
+        <FadeIn delay={0.05} className="flex flex-col gap-4 md:max-w-3xl">
+          <h1 className="text-4xl font-semibold text-brand-black md:text-5xl">
             {title}
           </h1>
           {subtitle ? (
-            <p className="text-lg text-brand-navy/80">{subtitle}</p>
+            <p className="text-lg text-brand-neutral">{subtitle}</p>
           ) : null}
-        </div>
+        </FadeIn>
         {ctaLabel && ctaHref ? (
-          <CTAButton href={ctaHref}>{ctaLabel}</CTAButton>
+          <FadeIn delay={0.1}>
+            <CTAButton href={ctaHref}>{ctaLabel}</CTAButton>
+          </FadeIn>
         ) : null}
       </div>
     </section>

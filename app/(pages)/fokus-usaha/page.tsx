@@ -3,6 +3,7 @@ import ContactCard from "@/components/contact-card";
 import PageHero from "@/components/page-hero";
 import Section from "@/components/section";
 import { siteConfig } from "@/lib/site-config";
+import { FadeIn } from "@/components/motion";
 
 export const metadata = buildMetadata({
   title: "Fokus Usaha",
@@ -27,15 +28,19 @@ export default function FokusUsahaPage() {
         description={siteConfig.pages.focus.pillarsIntro}
       >
         <div className="grid gap-4 md:grid-cols-2">
-          {siteConfig.focusAreas.map((area) => (
+          {siteConfig.focusAreas.map((area, index) => (
             <div
               key={area.title}
-              className="flex h-full flex-col gap-3 rounded-2xl border border-brand-navy/10 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(11,31,58,0.35)]"
+              className="flex h-full flex-col gap-3 rounded-2xl border border-brand-black/8 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)]"
             >
-              <h3 className="text-xl font-semibold text-brand-dark">
-                {area.title}
-              </h3>
-              <p className="text-base text-brand-navy/80">{area.description}</p>
+              <FadeIn delay={0.05 * index}>
+                <h3 className="text-xl font-semibold text-brand-black">
+                  {area.title}
+                </h3>
+                <p className="text-base text-brand-neutral">
+                  {area.description}
+                </p>
+              </FadeIn>
             </div>
           ))}
         </div>
@@ -46,15 +51,19 @@ export default function FokusUsahaPage() {
         description={siteConfig.about.currentFocus}
       >
         <div className="grid gap-4 md:grid-cols-2">
-          {siteConfig.about.principles.map((item) => (
+          {siteConfig.about.principles.map((item, index) => (
             <div
               key={item.title}
-              className="flex h-full flex-col gap-3 rounded-2xl border border-brand-navy/10 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(11,31,58,0.35)]"
+              className="flex h-full flex-col gap-3 rounded-2xl border border-brand-black/8 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)]"
             >
-              <h3 className="text-xl font-semibold text-brand-dark">
-                {item.title}
-              </h3>
-              <p className="text-base text-brand-navy/80">{item.description}</p>
+              <FadeIn delay={0.05 * index}>
+                <h3 className="text-xl font-semibold text-brand-black">
+                  {item.title}
+                </h3>
+                <p className="text-base text-brand-neutral">
+                  {item.description}
+                </p>
+              </FadeIn>
             </div>
           ))}
         </div>

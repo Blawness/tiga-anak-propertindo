@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { FadeIn } from "./motion";
 
 type SectionProps = {
   id?: string;
@@ -29,25 +30,27 @@ export default function Section({
     >
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-6">
         {(title || description || eyebrow) && (
-          <div className={`flex flex-col gap-2 ${alignment}`}>
+          <FadeIn className={`flex flex-col gap-2 ${alignment}`}>
             {eyebrow ? (
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-gold">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">
                 {eyebrow}
               </p>
             ) : null}
             {title ? (
-              <h2 className="text-3xl font-semibold text-brand-dark md:text-4xl">
+              <h2 className="text-3xl font-semibold text-brand-black md:text-4xl">
                 {title}
               </h2>
             ) : null}
             {description ? (
-              <p className="max-w-3xl text-base text-brand-navy/80 md:text-lg">
+              <p className="max-w-3xl text-base text-brand-neutral md:text-lg">
                 {description}
               </p>
             ) : null}
-          </div>
+          </FadeIn>
         )}
-        <div className="w-full">{children}</div>
+        <FadeIn delay={0.05} className="w-full">
+          {children}
+        </FadeIn>
       </div>
     </section>
   );

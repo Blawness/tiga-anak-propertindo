@@ -13,12 +13,12 @@ export default function CTAButton({
   variant = "solid",
 }: CTAButtonProps) {
   const base =
-    "inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold";
+    "inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-hover";
 
   const styles =
     variant === "solid"
-      ? "bg-brand-navy text-white hover:bg-brand-dark"
-      : "border border-brand-navy/20 text-brand-navy hover:border-brand-navy/40 hover:text-brand-dark";
+      ? "bg-brand-primary text-white hover:bg-brand-hover"
+      : "border border-brand-primary/30 text-brand-primary hover:border-brand-hover hover:text-brand-black hover:bg-brand-lilac";
 
   return (
     <Link href={href} className={`${base} ${styles}`}>

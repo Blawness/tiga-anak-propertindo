@@ -10,14 +10,18 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          navy: "#0b1f3a",
-          gold: "#c8a85c",
-          light: "#f6f7fb",
-          dark: "#08152c",
+          primary: "#6F3715", // Rustic Brown
+          hover: "#B1846A", // Sand Brown
+          neutral: "#737373", // Steel Gray
+          black: "#191919", // Midnight Black
+          lilac: "#E7DDF4", // Soft Lilac
+          paper: "#FAFAFA", // Paper White
         },
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        heading: ["var(--font-heading)", "sans-serif"],
+        body: ["var(--font-body)", "sans-serif"],
+        sans: ["var(--font-body)", "sans-serif"],
       },
     },
   },

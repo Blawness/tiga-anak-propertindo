@@ -2,6 +2,7 @@ import { buildMetadata } from "@/lib/meta";
 import PageHero from "@/components/page-hero";
 import Section from "@/components/section";
 import { siteConfig } from "@/lib/site-config";
+import { FadeIn } from "@/components/motion";
 
 export const metadata = buildMetadata({
   title: "Legalitas",
@@ -18,14 +19,14 @@ export default function LegalitasPage() {
       />
 
       <Section title="Status legalitas" description={siteConfig.pages.legal.documentsNote}>
-        <div className="rounded-2xl border border-brand-navy/10 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(11,31,58,0.35)]">
-          <p className="text-base font-semibold text-brand-dark">
+        <FadeIn className="rounded-2xl border border-brand-black/8 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)]">
+          <p className="text-base font-semibold text-brand-black">
             {siteConfig.legal.status}
           </p>
-          <p className="mt-3 text-base text-brand-navy/80">
+          <p className="mt-3 text-base text-brand-neutral">
             {siteConfig.legal.statement}
           </p>
-        </div>
+        </FadeIn>
       </Section>
     </div>
   );

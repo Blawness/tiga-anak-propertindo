@@ -1,3 +1,5 @@
+import { FadeIn } from "./motion";
+
 type StatCardProps = {
   label: string;
   value: string;
@@ -5,12 +7,12 @@ type StatCardProps = {
 
 export default function StatCard({ label, value }: StatCardProps) {
   return (
-    <div className="flex flex-col gap-2 rounded-2xl border border-brand-navy/10 bg-white p-6 shadow-[0_12px_24px_-18px_rgba(11,31,58,0.35)]">
-      <p className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-gold">
+    <FadeIn className="flex flex-col gap-2 rounded-2xl border border-brand-black/8 bg-white p-6 shadow-[0_12px_24px_-18px_rgba(25,25,25,0.28)]">
+      <p className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-primary">
         {label}
       </p>
-      <p className="text-lg font-semibold text-brand-dark">{value}</p>
-    </div>
+      <p className="text-lg font-semibold text-brand-black">{value}</p>
+    </FadeIn>
   );
 }
 

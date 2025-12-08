@@ -4,9 +4,9 @@ export const siteConfig = {
   description:
     "Perusahaan properti baru yang berfokus pada fondasi tata kelola, kemitraan yang transparan, dan persiapan proyek yang solid.",
   brand: {
-    primary: "#0b1f3a",
-    accent: "#c8a85c",
-    background: "#f6f7fb",
+    primary: "#6F3715",
+    accent: "#B1846A",
+    background: "#FAFAFA",
   },
   navigation: [
     { label: "Home", href: "/" },

@@ -5,6 +5,7 @@ import Section from "@/components/section";
 import StatCard from "@/components/stat-card";
 import CTAButton from "@/components/cta-button";
 import { siteConfig } from "@/lib/site-config";
+import { FadeIn } from "@/components/motion";
 
 export const metadata = buildMetadata({
   title: "Home",
@@ -40,26 +41,30 @@ export default function HomePage() {
         description="Area prioritas yang kami jalankan untuk membangun proyek yang tertata dan dapat dipertanggungjawabkan."
       >
         <div className="grid gap-4 md:grid-cols-2">
-          {siteConfig.focusAreas.map((area) => (
+          {siteConfig.focusAreas.map((area, index) => (
             <div
               key={area.title}
-              className="flex h-full flex-col gap-3 rounded-2xl border border-brand-navy/10 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(11,31,58,0.35)]"
+              className="flex h-full flex-col gap-3 rounded-2xl border border-brand-black/8 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)]"
             >
-              <h3 className="text-xl font-semibold text-brand-dark">
-                {area.title}
-              </h3>
-              <p className="text-base text-brand-navy/80">{area.description}</p>
+              <FadeIn delay={0.05 * index}>
+                <h3 className="text-xl font-semibold text-brand-black">
+                  {area.title}
+                </h3>
+                <p className="text-base text-brand-neutral">
+                  {area.description}
+                </p>
+              </FadeIn>
             </div>
           ))}
         </div>
       </Section>
 
       <Section align="center">
-        <div className="mx-auto max-w-3xl rounded-3xl border border-brand-navy/10 bg-brand-navy text-white px-6 py-10 shadow-[0_18px_32px_-24px_rgba(11,31,58,0.5)] md:px-10">
-          <h3 className="text-2xl font-semibold md:text-3xl">
+        <FadeIn className="mx-auto max-w-3xl rounded-3xl border border-brand-black/5 bg-brand-lilac px-6 py-10 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)] md:px-10">
+          <h3 className="text-2xl font-semibold text-brand-black md:text-3xl">
             Siap berkolaborasi secara terukur
           </h3>
-          <p className="mt-3 text-base text-white/80 md:text-lg">
+          <p className="mt-3 text-base text-brand-neutral md:text-lg">
             Kami terbuka untuk dialog awal guna memetakan kebutuhan, menyusun
             rencana, dan menentukan langkah prioritas secara realistis.
           </p>
@@ -68,7 +73,7 @@ export default function HomePage() {
               Hubungi Kami
             </CTAButton>
           </div>
-        </div>
+        </FadeIn>
       </Section>
 
       <Section title="Kontak" description="Silakan hubungi kami untuk percakapan awal.">
