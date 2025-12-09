@@ -28,20 +28,23 @@ export default function PageHero({
       />
       <div className="absolute inset-0 bg-brand-gradient opacity-70" aria-hidden />
       <div className="absolute inset-0 bg-gradient-to-r from-black/35 via-black/20 to-white/15 backdrop-blur-[1px]" />
-      <div className="relative mx-auto flex max-w-6xl flex-col gap-5 px-6 py-14 md:py-16">
-        <FadeIn>
+      <div className="relative mx-auto flex max-w-6xl flex-col gap-4 px-6 py-16 md:py-20">
+        <FadeIn className="flex flex-col gap-3">
           {eyebrow ? (
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
-              {eyebrow}
-            </p>
+            <>
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-brand-hover">
+                {eyebrow}
+              </p>
+              <div className="h-px w-12 bg-brand-hover/60" aria-hidden />
+            </>
           ) : null}
         </FadeIn>
         <FadeIn delay={0.05} className="flex flex-col gap-4 md:max-w-3xl">
-          <h1 className="text-4xl font-semibold text-white md:text-5xl">
+          <h1 className="font-heading text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
             {title}
           </h1>
           {subtitle ? (
-            <p className="text-lg text-white/85">{subtitle}</p>
+            <p className="text-base text-white/80 md:text-lg">{subtitle}</p>
           ) : null}
         </FadeIn>
         {ctaLabel && ctaHref ? (
@@ -50,6 +53,8 @@ export default function PageHero({
           </FadeIn>
         ) : null}
       </div>
+      {/* Subtle bottom border for smooth transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-hover/30 to-transparent" aria-hidden />
     </section>
   );
 }

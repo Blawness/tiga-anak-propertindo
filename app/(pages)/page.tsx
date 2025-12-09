@@ -30,29 +30,40 @@ export default function HomePage() {
         align="center"
       >
         <div className="grid gap-4 md:grid-cols-3">
-          {siteConfig.credibility.map((item) => (
-            <StatCard key={item.label} label={item.label} value={item.value} />
+          {siteConfig.credibility.map((item, index) => (
+            <StatCard
+              key={item.label}
+              label={item.label}
+              value={item.value}
+              primary={index === 0}
+            />
           ))}
         </div>
       </Section>
 
       <Section
-        title="Fokus usaha"
-        description="Area prioritas yang kami jalankan untuk membangun proyek yang tertata dan dapat dipertanggungjawabkan."
+        title="Layanan utama"
+        description="Layanan prioritas untuk menyiapkan proyek yang tertata, patuh regulasi, dan siap dieksekusi."
       >
         <div className="grid gap-4 md:grid-cols-2">
           {siteConfig.focusAreas.map((area, index) => (
             <div
               key={area.title}
-              className="card-surface flex h-full flex-col gap-3"
+              className={`card-surface flex h-full flex-col gap-4 ${index === 0 ? "md:col-span-2 md:flex-row md:items-start md:gap-8" : ""
+                }`}
             >
-              <FadeIn delay={0.05 * index}>
-                <h3 className="text-xl font-semibold text-brand-black">
-                  {area.title}
-                </h3>
-                <p className="text-base text-brand-neutral">
-                  {area.description}
-                </p>
+              <FadeIn delay={0.05 * index} className={index === 0 ? "flex flex-col gap-4 md:flex-row md:items-start md:gap-8 w-full" : ""}>
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand-primary/20 bg-brand-paper text-sm font-semibold text-brand-primary">
+                  {String(index + 1).padStart(2, '0')}
+                </div>
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-xl font-semibold text-brand-black">
+                    {area.title}
+                  </h3>
+                  <p className="text-base text-brand-neutral">
+                    {area.description}
+                  </p>
+                </div>
               </FadeIn>
             </div>
           ))}
@@ -60,18 +71,21 @@ export default function HomePage() {
       </Section>
 
       <Section align="center">
-        <FadeIn className="mx-auto max-w-3xl rounded-3xl border border-brand-black/5 bg-brand-gradient-soft px-6 py-10 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)] transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_48px_-30px_rgba(25,25,25,0.32)] md:px-10">
-          <h3 className="text-2xl font-semibold text-brand-black md:text-3xl">
-            Siap berkolaborasi secara terukur
-          </h3>
-          <p className="mt-3 text-base text-brand-neutral md:text-lg">
-            Kami terbuka untuk dialog awal guna memetakan kebutuhan, menyusun
-            rencana, dan menentukan langkah prioritas secara realistis.
-          </p>
-          <div className="mt-6 flex justify-center">
-            <CTAButton href={mailto} variant="ghost">
-              Hubungi Kami
-            </CTAButton>
+        <FadeIn className="mx-auto max-w-3xl rounded-2xl border border-brand-black/8 bg-white px-8 py-12 shadow-[0_12px_24px_-16px_rgba(25,25,25,0.12)] md:px-12 md:py-14">
+          <div className="flex flex-col items-center text-center">
+            <div className="mb-4 h-px w-16 bg-brand-primary/40" aria-hidden />
+            <h3 className="font-heading text-2xl font-semibold text-brand-black md:text-3xl">
+              Siap berkolaborasi secara terukur
+            </h3>
+            <p className="mt-4 max-w-xl text-base text-brand-neutral md:text-lg">
+              Kami terbuka untuk dialog awal guna memetakan kebutuhan, menyusun
+              rencana, dan menentukan langkah prioritas secara realistis.
+            </p>
+            <div className="mt-8">
+              <CTAButton href={mailto} variant="ghost">
+                Hubungi Kami
+              </CTAButton>
+            </div>
           </div>
         </FadeIn>
       </Section>

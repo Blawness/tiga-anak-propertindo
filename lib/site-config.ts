@@ -11,7 +11,7 @@ export const siteConfig = {
   navigation: [
     { label: "Home", href: "/" },
     { label: "Tentang Kami", href: "/tentang-kami" },
-    { label: "Fokus Usaha", href: "/fokus-usaha" },
+    { label: "Layanan", href: "/layanan" },
     { label: "Proyek", href: "/proyek" },
     { label: "Legalitas", href: "/legalitas" },
     { label: "Kontak", href: "/kontak" },
@@ -98,12 +98,12 @@ export const siteConfig = {
       "Fokus kami saat ini adalah mematangkan kerangka tata kelola, menyusun pipeline kemitraan, dan menyiapkan dokumentasi dasar sebelum eksekusi proyek.",
   },
   pages: {
-    focus: {
-      title: "Fokus usaha",
+    services: {
+      title: "Layanan",
       subtitle:
-        "Area prioritas yang kami jalankan untuk memastikan kesiapan proyek dan kemitraan berjalan terstruktur.",
+        "Fokus layanan untuk menyiapkan proyek yang tertata, patuh regulasi, dan siap dijalankan.",
       pillarsIntro:
-        "Setiap fokus dilengkapi standar dokumentasi dan langkah mitigasi untuk meminimalkan risiko.",
+        "Setiap layanan memiliki standar dokumentasi, mitigasi risiko, dan pengendalian kualitas.",
     },
     project: {
       title: "Proyek",
