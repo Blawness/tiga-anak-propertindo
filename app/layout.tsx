@@ -27,7 +27,7 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="id" className={`${headingFont.variable} ${bodyFont.variable}`}>
-      <body className="bg-brand-paper text-brand-neutral antialiased">
+      <body className="bg-slate-50 text-slate-700 antialiased">
         {children}
       </body>
     </html>

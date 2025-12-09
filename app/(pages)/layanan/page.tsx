@@ -6,6 +6,8 @@ import SectionWithImage from "@/components/section-with-image";
 import { siteConfig } from "@/lib/site-config";
 import { FadeIn } from "@/components/motion";
 import Image from "next/image";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export const metadata = buildMetadata({
   title: "Layanan",
@@ -41,7 +43,7 @@ export default function LayananPage() {
             return (
               <div
                 key={area.title}
-                className="group overflow-hidden rounded-2xl border border-brand-black/8 bg-white shadow-sm transition-all hover:shadow-md"
+                className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
               >
                 <FadeIn delay={0.05 * index}>
                   {/* Image */}
@@ -53,17 +55,17 @@ export default function LayananPage() {
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-black/40 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
                     <div className="absolute bottom-4 left-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-sm font-semibold text-brand-primary shadow-sm">
-                      {String(index + 1).padStart(2, '0')}
+                      {String(index + 1).padStart(2, "0")}
                     </div>
                   </div>
                   {/* Content */}
                   <div className="flex flex-col gap-3 p-6">
-                    <h3 className="text-xl font-semibold text-brand-black">
+                    <h3 className="text-xl font-semibold text-slate-900">
                       {area.title}
                     </h3>
-                    <p className="text-base text-brand-neutral">
+                    <p className="text-base text-slate-600">
                       {area.description}
                     </p>
                   </div>
@@ -85,19 +87,17 @@ export default function LayananPage() {
         <div className="grid gap-4">
           {siteConfig.about.principles.map((item, index) => (
             <FadeIn key={item.title} delay={0.05 * index}>
-              <div className="flex gap-4 rounded-xl border border-brand-black/8 bg-brand-paper/50 p-4 transition-colors hover:bg-brand-paper">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary/10 text-xs font-semibold text-brand-primary">
-                  {String(index + 1).padStart(2, '0')}
-                </div>
+              <Card className="flex gap-4 border-slate-200 bg-white/90 p-5">
+                <Badge className="h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 text-brand-primary">
+                  {String(index + 1).padStart(2, "0")}
+                </Badge>
                 <div className="flex flex-col gap-1">
-                  <h4 className="text-base font-semibold text-brand-black">
+                  <h4 className="text-base font-semibold text-slate-900">
                     {item.title}
                   </h4>
-                  <p className="text-sm text-brand-neutral">
-                    {item.description}
-                  </p>
+                  <p className="text-sm text-slate-600">{item.description}</p>
                 </div>
-              </div>
+              </Card>
             </FadeIn>
           ))}
         </div>

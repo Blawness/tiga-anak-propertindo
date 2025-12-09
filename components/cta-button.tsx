@@ -1,29 +1,30 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { buttonVariants } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 type CTAButtonProps = {
   href: string;
   children: ReactNode;
-  variant?: "solid" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "outline";
   className?: string;
 };
 
 export default function CTAButton({
   href,
   children,
-  variant = "solid",
-  className = "",
+  variant = "primary",
+  className,
 }: CTAButtonProps) {
-  const base =
-    "inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-hover";
-
-  const styles =
-    variant === "solid"
-      ? "bg-brand-gradient text-white shadow-[0_12px_26px_-18px_rgba(25,25,25,0.55)] hover:shadow-[0_18px_34px_-18px_rgba(25,25,25,0.6)]"
-      : "border border-brand-primary/30 text-brand-primary hover:border-brand-hover hover:text-brand-black hover:bg-brand-gradient-soft";
-
   return (
-    <Link href={href} className={`${base} ${styles} ${className}`}>
+    <Link
+      href={href}
+      className={cn(
+        buttonVariants({ variant, size: "lg" }),
+        "rounded-full px-6",
+        className,
+      )}
+    >
       {children}
     </Link>
   );

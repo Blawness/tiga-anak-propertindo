@@ -78,13 +78,44 @@ export const siteConfig = {
     },
     {
       label: "Kemitraan transparan",
-      value: "Proses komunikasi yang jelas dan terdokumentasi",
+      value: "Komunikasi terdokumentasi dan mudah ditelusuri",
     },
     {
       label: "Fokus compliance",
       value: "Kepatuhan regulasi sebagai prioritas inti",
     },
   ],
+  roadmap: {
+    title: "Roadmap kesiapan eksekusi",
+    subtitle:
+      "Langkah bertahap untuk memastikan tata kelola, kemitraan, dan kesiapan proyek berjalan terstruktur sebelum publikasi.",
+    phases: [
+      {
+        title: "Fondasi & tata kelola",
+        period: "Tahap 1",
+        detail: "Membangun kerangka kontrol internal, SOP, dan dokumentasi dasar.",
+        status: "Berjalan",
+      },
+      {
+        title: "Kepatuhan & legalitas",
+        period: "Tahap 2",
+        detail: "Finalisasi perizinan inti dan validasi dokumen pendukung.",
+        status: "Progres",
+      },
+      {
+        title: "Kemitraan & studi",
+        period: "Tahap 3",
+        detail: "Penjajakan mitra lahan/finansial dan uji kelayakan awal.",
+        status: "Terjadwal",
+      },
+      {
+        title: "Pra-peluncuran proyek",
+        period: "Tahap 4",
+        detail: "Kurasi materi publikasi dan kesiapan komunikasi resmi.",
+        status: "Mendatang",
+      },
+    ],
+  },
   legal: {
     status: "Legalitas dalam proses finalisasi; detail akan diperbarui secara berkala.",
     statement:

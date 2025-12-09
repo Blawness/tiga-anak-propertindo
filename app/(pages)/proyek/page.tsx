@@ -5,6 +5,8 @@ import SectionWithImage from "@/components/section-with-image";
 import { siteConfig } from "@/lib/site-config";
 import { FadeIn } from "@/components/motion";
 import Image from "next/image";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export const metadata = buildMetadata({
   title: "Proyek",
@@ -33,37 +35,43 @@ export default function ProyekPage() {
         imagePosition="right"
       >
         <FadeIn>
-          <div className="overflow-hidden rounded-xl border border-brand-black/8 bg-white shadow-sm">
-            {/* Coming Soon Visual */}
-            <div className="relative h-48 overflow-hidden bg-gradient-to-br from-brand-primary/5 to-brand-accent/10">
+          <Card className="overflow-hidden border-slate-200">
+            <div className="relative h-48 overflow-hidden bg-gradient-to-br from-brand-primary/8 to-brand-primary/4">
               <Image
                 src={siteConfig.images.construction}
                 alt="Construction site"
                 fill
-                className="object-cover opacity-20"
+                className="object-cover opacity-30"
                 sizes="100vw"
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-primary/10">
-                  <svg className="h-8 w-8 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/85 shadow">
+                  <svg
+                    className="h-8 w-8 text-brand-primary"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                    />
                   </svg>
                 </div>
-                <span className="rounded-full bg-brand-primary/10 px-4 py-1.5 text-sm font-semibold text-brand-primary">
-                  Coming Soon
-                </span>
+                <Badge>Coming Soon</Badge>
               </div>
             </div>
-            {/* Content */}
             <div className="p-6">
-              <p className="text-base font-semibold text-brand-black">
+              <p className="text-base font-semibold text-slate-900">
                 {siteConfig.pages.project.statusNote}
               </p>
-              <p className="mt-3 text-base text-brand-neutral">
+              <p className="mt-3 text-base text-slate-600">
                 {siteConfig.legal.statement}
               </p>
             </div>
-          </div>
+          </Card>
         </FadeIn>
       </SectionWithImage>
 

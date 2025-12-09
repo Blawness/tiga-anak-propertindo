@@ -4,6 +4,8 @@ import PageHero from "@/components/page-hero";
 import SectionWithImage from "@/components/section-with-image";
 import { siteConfig } from "@/lib/site-config";
 import Image from "next/image";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export const metadata = buildMetadata({
   title: "Kontak",
@@ -39,10 +41,9 @@ export default function KontakPage() {
       </SectionWithImage>
 
       {/* Additional visual element - Location/Office vibe */}
-      <section className="w-full px-6 py-14 md:py-16">
-        <div className="mx-auto max-w-6xl">
-          <div className="relative overflow-hidden rounded-2xl">
-            {/* Full-width image with overlay */}
+      <section className="py-12 md:py-16">
+        <div className="section-shell">
+          <Card className="relative overflow-hidden border-slate-200">
             <div className="relative h-64 md:h-80">
               <Image
                 src={siteConfig.images.property}
@@ -51,10 +52,10 @@ export default function KontakPage() {
                 className="object-cover"
                 sizes="100vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-black/70 via-brand-black/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/75 via-slate-900/40 to-transparent" />
             </div>
-            {/* Content overlay */}
             <div className="absolute inset-0 flex flex-col items-center justify-end p-8 text-center">
+              <Badge className="mb-3 bg-white/20 text-white ring-0">Komitmen</Badge>
               <h3 className="text-xl font-semibold text-white md:text-2xl">
                 Membangun Kepercayaan Bersama
               </h3>
@@ -62,7 +63,7 @@ export default function KontakPage() {
                 Kami berkomitmen memberikan respons yang berkualitas untuk setiap pertanyaan dan diskusi Anda.
               </p>
             </div>
-          </div>
+          </Card>
         </div>
       </section>
     </div>

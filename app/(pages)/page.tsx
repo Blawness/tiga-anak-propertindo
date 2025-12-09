@@ -5,9 +5,12 @@ import Section from "@/components/section";
 import SectionWithImage from "@/components/section-with-image";
 import StatCard from "@/components/stat-card";
 import CTAButton from "@/components/cta-button";
+import RoadmapTimeline from "@/components/roadmap-timeline";
 import { siteConfig } from "@/lib/site-config";
 import { FadeIn } from "@/components/motion";
 import Image from "next/image";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export const metadata = buildMetadata({
   title: "Home",
@@ -26,7 +29,6 @@ export default function HomePage() {
         eyebrow="PT Tiga Anak Propertindo"
       />
 
-      {/* Komitmen Inti - with image */}
       <SectionWithImage
         title="Komitmen inti kami"
         description="Pendekatan prudent, transparan, dan patuh regulasi untuk memastikan setiap langkah pengembangan properti memiliki dasar yang kuat."
@@ -34,7 +36,7 @@ export default function HomePage() {
         imageAlt="Modern property building representing our commitment"
         imagePosition="right"
       >
-        <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
+        <div className="grid min-w-0 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {siteConfig.credibility.map((item, index) => (
             <StatCard
               key={item.label}
@@ -46,7 +48,6 @@ export default function HomePage() {
         </div>
       </SectionWithImage>
 
-      {/* Layanan Utama - with images per card */}
       <Section
         title="Layanan utama"
         description="Layanan prioritas untuk menyiapkan proyek yang tertata, patuh regulasi, dan siap dieksekusi."
@@ -59,79 +60,75 @@ export default function HomePage() {
               siteConfig.images.construction,
               siteConfig.images.documents,
             ];
+
             return (
-              <div
-                key={area.title}
-                className={`group overflow-hidden rounded-2xl border border-brand-black/8 bg-white shadow-sm transition-all hover:shadow-md ${index === 0 ? "md:col-span-2" : ""
-                  }`}
-              >
-                <FadeIn delay={0.05 * index}>
-                  <div className={`flex flex-col ${index === 0 ? "md:flex-row" : ""}`}>
-                    {/* Image */}
-                    <div className={`relative ${index === 0 ? "h-48 md:h-auto md:w-2/5" : "h-40"}`}>
-                      <Image
-                        src={images[index]}
-                        alt={area.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes={index === 0 ? "(max-width: 768px) 100vw, 40vw" : "(max-width: 768px) 100vw, 50vw"}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-brand-black/20 to-transparent" />
-                    </div>
-                    {/* Content */}
-                    <div className={`flex flex-col gap-3 p-6 ${index === 0 ? "md:w-3/5" : ""}`}>
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand-primary/20 bg-brand-paper text-sm font-semibold text-brand-primary">
-                        {String(index + 1).padStart(2, '0')}
-                      </div>
-                      <h3 className="text-xl font-semibold text-brand-black">
-                        {area.title}
-                      </h3>
-                      <p className="text-base text-brand-neutral">
-                        {area.description}
-                      </p>
+              <FadeIn key={area.title} delay={0.05 * index} className="h-full">
+                <Card className="group flex h-full flex-col overflow-hidden border-slate-200">
+                  <div className="relative h-44 overflow-hidden">
+                    <Image
+                      src={images[index]}
+                      alt={area.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/45 via-slate-900/10 to-transparent" />
+                    <div className="absolute left-4 top-4 flex items-center gap-2">
+                      <Badge className="bg-white/90 text-brand-primary ring-0">
+                        Layanan {String(index + 1).padStart(2, "0")}
+                      </Badge>
+                      <Badge variant="outline">Fokus</Badge>
                     </div>
                   </div>
-                </FadeIn>
-              </div>
+
+                  <div className="flex flex-1 flex-col gap-3 p-6">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      {area.title}
+                    </h3>
+                    <p className="text-base text-slate-600">{area.description}</p>
+                  </div>
+                </Card>
+              </FadeIn>
             );
           })}
         </div>
       </Section>
 
-      {/* CTA Section - with background image */}
-      <Section align="center" padded={false}>
-        <FadeIn className="relative mx-auto max-w-5xl overflow-hidden rounded-2xl">
-          {/* Background Image */}
-          <div className="absolute inset-0">
+      <Section
+        title={siteConfig.roadmap.title}
+        description={siteConfig.roadmap.subtitle}
+      >
+        <RoadmapTimeline />
+      </Section>
+
+      <section className="py-12 md:py-16">
+        <div className="section-shell">
+          <FadeIn className="relative overflow-hidden rounded-3xl border border-slate-200 bg-slate-900 text-white shadow-md">
             <Image
               src={siteConfig.images.collaboration}
               alt="Collaboration"
               fill
-              className="object-cover"
+              className="object-cover opacity-60"
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-black/80 via-brand-black/70 to-brand-black/60" />
-          </div>
-          {/* Content */}
-          <div className="relative flex flex-col items-center px-8 py-16 text-center md:px-16 md:py-20">
-            <div className="mb-4 h-px w-16 bg-white/40" aria-hidden />
-            <h3 className="font-heading text-2xl font-semibold text-white md:text-3xl">
-              Siap berkolaborasi secara terukur
-            </h3>
-            <p className="mt-4 max-w-xl text-base text-white/80 md:text-lg">
-              Kami terbuka untuk dialog awal guna memetakan kebutuhan, menyusun
-              rencana, dan menentukan langkah prioritas secara realistis.
-            </p>
-            <div className="mt-8">
-              <CTAButton href={mailto} variant="solid">
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/75 to-slate-900/60" />
+            <div className="relative flex flex-col items-center gap-4 px-8 py-16 text-center md:px-16 md:py-20">
+              <Badge className="bg-white/15 text-white ring-0">Kolaborasi</Badge>
+              <h3 className="font-heading text-2xl font-semibold md:text-3xl">
+                Siap berkolaborasi secara terukur
+              </h3>
+              <p className="max-w-2xl text-base text-white/80 md:text-lg">
+                Kami terbuka untuk dialog awal guna memetakan kebutuhan, menyusun
+                rencana, dan menentukan langkah prioritas secara realistis.
+              </p>
+              <CTAButton href={mailto} variant="secondary" className="mt-2">
                 Hubungi Kami
               </CTAButton>
             </div>
-          </div>
-        </FadeIn>
-      </Section>
+          </FadeIn>
+        </div>
+      </section>
 
-      {/* Kontak Section - with image */}
       <SectionWithImage
         title="Kontak"
         description="Silakan hubungi kami untuk percakapan awal."

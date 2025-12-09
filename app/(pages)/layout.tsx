@@ -8,7 +8,7 @@ type PagesLayoutProps = {
 
 export default function PagesLayout({ children }: PagesLayoutProps) {
   return (
-    <div className="flex min-h-screen flex-col bg-brand-paper">
+    <div className="flex min-h-screen flex-col bg-slate-50">
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />

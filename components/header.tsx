@@ -7,24 +7,19 @@ import { useState, useEffect } from "react";
 import { siteConfig } from "@/lib/site-config";
 import CTAButton from "./cta-button";
 import { FadeIn } from "./motion";
+import { cn } from "@/lib/utils";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const mailto = `mailto:${siteConfig.contact.email}`;
 
-  // Close menu when route changes
   useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname]);
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
@@ -37,11 +32,10 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-brand-black/5 bg-brand-paper/95 backdrop-blur-md">
-        <FadeIn className="mx-auto flex w-full max-w-6xl items-center justify-between gap-2 sm:gap-4 px-4 sm:px-6 py-4">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 relative z-50 shrink-0">
-            <div className="relative h-8 w-8 sm:h-10 sm:w-10 overflow-hidden rounded-full shadow-[0_10px_24px_-12px_rgba(111,55,21,0.45)]">
+      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+        <FadeIn className="section-shell flex items-center justify-between gap-4 py-4">
+          <Link href="/" className="relative z-50 flex items-center gap-3">
+            <div className="relative h-10 w-10 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
               <Image
                 src="/android-chrome-192x192.png"
                 alt={siteConfig.name}
@@ -51,109 +45,104 @@ export default function Header() {
                 priority
               />
             </div>
-            <div className="flex flex-col leading-tight min-w-0">
-              <span className="text-sm sm:text-base font-semibold text-brand-black truncate">
+            <div className="flex flex-col leading-tight">
+              <span className="text-base font-semibold text-slate-900">
                 {siteConfig.name}
               </span>
-              <span className="text-[10px] sm:text-xs text-brand-neutral truncate">
-                Properti &amp; kemitraan
-              </span>
+              <span className="text-xs text-slate-500">Properti & kemitraan</span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden items-center gap-6 text-sm font-medium text-brand-neutral md:flex">
+          <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
             {siteConfig.navigation.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative transition-colors hover:text-brand-black ${isActive(item.href) ? "text-brand-primary font-semibold" : ""
-                  }`}
+                className={cn(
+                  "relative pb-1 transition-colors hover:text-slate-900",
+                  isActive(item.href) && "text-brand-primary",
+                )}
               >
                 {item.label}
                 {isActive(item.href) && (
-                  <span className="absolute -bottom-1 left-0 h-0.5 w-full bg-brand-primary rounded-full" />
+                  <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-brand-primary" />
                 )}
               </Link>
             ))}
           </nav>
 
-          {/* Desktop CTA */}
           <div className="hidden md:block">
             <CTAButton href={mailto}>Hubungi Kami</CTAButton>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border border-brand-black/10 bg-white transition-colors hover:bg-brand-black/5 md:hidden"
+            className="relative z-50 flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 bg-white shadow-sm md:hidden"
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
           >
-            <span
-              className={`h-0.5 w-5 bg-brand-black transition-all duration-300 ${isMenuOpen ? "translate-y-2 rotate-45" : ""
-                }`}
-            />
-            <span
-              className={`h-0.5 w-5 bg-brand-black transition-all duration-300 ${isMenuOpen ? "opacity-0" : ""
-                }`}
-            />
-            <span
-              className={`h-0.5 w-5 bg-brand-black transition-all duration-300 ${isMenuOpen ? "-translate-y-2 -rotate-45" : ""
-                }`}
-            />
+            <div className="flex flex-col gap-1.5">
+              <span
+                className={cn(
+                  "h-0.5 w-6 bg-slate-800 transition-transform duration-300",
+                  isMenuOpen && "translate-y-2 rotate-45",
+                )}
+              />
+              <span
+                className={cn(
+                  "h-0.5 w-6 bg-slate-800 transition-opacity duration-300",
+                  isMenuOpen && "opacity-0",
+                )}
+              />
+              <span
+                className={cn(
+                  "h-0.5 w-6 bg-slate-800 transition-transform duration-300",
+                  isMenuOpen && "-translate-y-2 -rotate-45",
+                )}
+              />
+            </div>
           </button>
         </FadeIn>
       </header>
 
-      {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-brand-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
+        className={cn(
+          "fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-200 md:hidden",
+          isMenuOpen ? "opacity-100" : "pointer-events-none opacity-0",
+        )}
         onClick={() => setIsMenuOpen(false)}
         aria-hidden="true"
       />
 
-      {/* Mobile Menu Drawer */}
       <div
-        className={`fixed right-0 top-0 z-40 h-full w-[280px] bg-brand-paper shadow-2xl transition-transform duration-300 ease-out md:hidden ${isMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={cn(
+          "fixed right-0 top-0 z-40 h-full w-[300px] bg-white shadow-xl transition-transform duration-200 md:hidden",
+          isMenuOpen ? "translate-x-0" : "translate-x-full",
+        )}
       >
-        <nav className="flex flex-col gap-2 px-6 pt-24 pb-8">
-          {/* Mobile Navigation Links */}
+        <div className="flex flex-col gap-3 px-6 pt-20 pb-8">
           {siteConfig.navigation.map((item, index) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`group relative overflow-hidden rounded-lg px-4 py-3 text-base font-medium transition-all ${isActive(item.href)
-                ? "bg-brand-primary text-white shadow-sm"
-                : "text-brand-neutral hover:bg-brand-black/5 hover:text-brand-black"
-                }`}
-              style={{
-                transitionDelay: isMenuOpen ? `${index * 50}ms` : "0ms",
-              }}
-            >
-              <span className="relative z-10">{item.label}</span>
-              {isActive(item.href) && (
-                <span className="absolute left-0 top-0 h-full w-1 bg-white/40 rounded-r" />
+              className={cn(
+                "rounded-lg px-4 py-3 text-base font-medium text-slate-700 transition-colors hover:bg-slate-100",
+                isActive(item.href) && "bg-brand-primary/10 text-brand-primary",
               )}
+              style={{ transitionDelay: isMenuOpen ? `${index * 30}ms` : "0ms" }}
+            >
+              {item.label}
             </Link>
           ))}
 
-          {/* Mobile CTA Button */}
-          <div className="mt-6 pt-6 border-t border-brand-black/10">
+          <div className="mt-4 border-t border-slate-200 pt-4">
             <CTAButton href={mailto} className="w-full justify-center">
               Hubungi Kami
             </CTAButton>
           </div>
 
-          {/* Mobile Footer Info */}
-          <div className="mt-auto pt-8">
-            <p className="text-xs text-brand-neutral text-center">
-              {siteConfig.tagline}
-            </p>
-          </div>
-        </nav>
+          <p className="mt-auto text-xs text-slate-500">{siteConfig.tagline}</p>
+        </div>
       </div>
     </>
   );

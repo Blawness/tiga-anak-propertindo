@@ -37,4 +37,32 @@ export function FadeIn({
   );
 }
 
+type GrowYProps = {
+  children?: ReactNode;
+  className?: string;
+  delay?: number;
+  duration?: number;
+};
+
+// Simple grow animation for connectors/lines.
+export function GrowY({
+  children,
+  className,
+  delay = 0,
+  duration = 0.4,
+}: GrowYProps) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ scaleY: 0, opacity: 0 }}
+      whileInView={{ scaleY: 1, opacity: 1 }}
+      style={{ transformOrigin: "top" }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration, ease: "easeOut", delay }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 
