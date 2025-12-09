@@ -27,7 +27,7 @@ export default function ProyekPage() {
         title="Status"
         description="Kami memastikan kesiapan dokumen, tata kelola, dan struktur kemitraan sebelum publikasi proyek."
       >
-        <FadeIn className="rounded-2xl border border-brand-black/8 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)]">
+        <FadeIn className="card-surface">
           <p className="text-base font-semibold text-brand-black">
             {siteConfig.pages.project.statusNote}
           </p>

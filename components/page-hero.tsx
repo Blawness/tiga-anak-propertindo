@@ -1,6 +1,9 @@
 import CTAButton from "./cta-button";
 import { FadeIn } from "./motion";
 
+const HERO_BACKGROUND =
+  "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1600&q=80";
+
 type PageHeroProps = {
   title: string;
   subtitle?: string;
@@ -17,8 +20,14 @@ export default function PageHero({
   ctaHref,
 }: PageHeroProps) {
   return (
-    <section className="w-full bg-brand-paper">
-      <div className="mx-auto flex max-w-6xl flex-col gap-5 px-6 py-14 md:py-16">
+    <section className="relative isolate w-full overflow-hidden bg-brand-paper">
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url('${HERO_BACKGROUND}')` }}
+        aria-hidden
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/92 to-white/80" />
+      <div className="relative mx-auto flex max-w-6xl flex-col gap-5 px-6 py-14 md:py-16">
         <FadeIn>
           {eyebrow ? (
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">

@@ -44,7 +44,7 @@ export default function HomePage() {
           {siteConfig.focusAreas.map((area, index) => (
             <div
               key={area.title}
-              className="flex h-full flex-col gap-3 rounded-2xl border border-brand-black/8 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)]"
+              className="card-surface flex h-full flex-col gap-3"
             >
               <FadeIn delay={0.05 * index}>
                 <h3 className="text-xl font-semibold text-brand-black">
@@ -60,7 +60,7 @@ export default function HomePage() {
       </Section>
 
       <Section align="center">
-        <FadeIn className="mx-auto max-w-3xl rounded-3xl border border-brand-black/5 bg-brand-lilac px-6 py-10 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)] md:px-10">
+        <FadeIn className="mx-auto max-w-3xl rounded-3xl border border-brand-black/5 bg-brand-lilac px-6 py-10 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)] transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_48px_-30px_rgba(25,25,25,0.32)] md:px-10">
           <h3 className="text-2xl font-semibold text-brand-black md:text-3xl">
             Siap berkolaborasi secara terukur
           </h3>

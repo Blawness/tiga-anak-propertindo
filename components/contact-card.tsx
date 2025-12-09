@@ -19,7 +19,7 @@ export default function ContactCard({
   const whatsappHref = hasWhatsApp ? `https://wa.me/${whatsapp}` : "";
 
   return (
-    <FadeIn className="flex flex-col gap-4 rounded-2xl border border-brand-black/8 bg-white p-6 shadow-[0_12px_24px_-18px_rgba(25,25,25,0.28)]">
+    <FadeIn className="card-surface flex flex-col gap-4">
       <div className="flex flex-col gap-2">
         <p className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-primary">
           {title}

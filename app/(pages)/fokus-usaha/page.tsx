@@ -31,7 +31,7 @@ export default function FokusUsahaPage() {
           {siteConfig.focusAreas.map((area, index) => (
             <div
               key={area.title}
-              className="flex h-full flex-col gap-3 rounded-2xl border border-brand-black/8 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)]"
+              className="card-surface flex h-full flex-col gap-3"
             >
               <FadeIn delay={0.05 * index}>
                 <h3 className="text-xl font-semibold text-brand-black">
@@ -54,7 +54,7 @@ export default function FokusUsahaPage() {
           {siteConfig.about.principles.map((item, index) => (
             <div
               key={item.title}
-              className="flex h-full flex-col gap-3 rounded-2xl border border-brand-black/8 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)]"
+              className="card-surface flex h-full flex-col gap-3"
             >
               <FadeIn delay={0.05 * index}>
                 <h3 className="text-xl font-semibold text-brand-black">

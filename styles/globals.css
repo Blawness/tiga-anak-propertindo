@@ -40,3 +40,10 @@ a {
   outline-offset: 2px;
 }
 
+@layer components {
+  .card-surface {
+    @apply rounded-2xl border bg-white p-6 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)] transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_48px_-30px_rgba(25,25,25,0.32)];
+    border-color: rgb(25 25 25 / 0.08);
+  }
+}
+

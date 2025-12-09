@@ -28,7 +28,7 @@ export default function AboutPage() {
           {siteConfig.about.overview.map((paragraph, index) => (
             <div
               key={paragraph}
-              className="rounded-2xl border border-brand-black/8 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)]"
+              className="card-surface"
             >
               <FadeIn delay={0.05 * index}>
                 <p className="text-base text-brand-neutral">{paragraph}</p>
@@ -46,7 +46,7 @@ export default function AboutPage() {
           {siteConfig.about.principles.map((item, index) => (
             <div
               key={item.title}
-              className="flex h-full flex-col gap-3 rounded-2xl border border-brand-black/8 bg-white p-6 shadow-[0_18px_32px_-24px_rgba(25,25,25,0.28)]"
+              className="card-surface flex h-full flex-col gap-3"
             >
               <FadeIn delay={0.05 * index}>
                 <h3 className="text-xl font-semibold text-brand-black">
