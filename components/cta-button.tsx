@@ -17,8 +17,8 @@ export default function CTAButton({
 
   const styles =
     variant === "solid"
-      ? "bg-brand-primary text-white hover:bg-brand-hover"
-      : "border border-brand-primary/30 text-brand-primary hover:border-brand-hover hover:text-brand-black hover:bg-brand-lilac";
+      ? "bg-brand-gradient text-white shadow-[0_12px_26px_-18px_rgba(25,25,25,0.55)] hover:shadow-[0_18px_34px_-18px_rgba(25,25,25,0.6)]"
+      : "border border-brand-primary/30 text-brand-primary hover:border-brand-hover hover:text-brand-black hover:bg-brand-gradient-soft";
 
   return (
     <Link href={href} className={`${base} ${styles}`}>
