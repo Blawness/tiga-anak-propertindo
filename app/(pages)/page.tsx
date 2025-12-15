@@ -114,7 +114,7 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/75 to-slate-900/60" />
             <div className="relative flex flex-col items-center gap-4 px-8 py-16 text-center md:px-16 md:py-20">
               <Badge className="bg-white/15 text-white ring-0">Kolaborasi</Badge>
-              <h3 className="font-heading text-2xl font-semibold md:text-3xl">
+              <h3 className="font-heading text-2xl font-semibold text-white md:text-3xl">
                 Siap berkolaborasi secara terukur
               </h3>
               <p className="max-w-2xl text-base text-white/80 md:text-lg">

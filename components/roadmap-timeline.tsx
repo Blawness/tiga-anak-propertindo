@@ -2,61 +2,101 @@
 
 import { siteConfig } from "@/lib/site-config";
 import { FadeIn, GrowY } from "@/components/motion";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export default function RoadmapTimeline() {
   return (
     <div className="relative">
-      {/* Main vertical line that stops at the last dot */}
-      <GrowY className="absolute left-4 top-4 hidden h-[11rem] w-0.5 bg-gradient-to-b from-brand-primary via-brand-primary/60 to-brand-primary/20 md:left-6 md:h-[15rem] md:block" />
+      <div className="relative">
+        {/* Horizontal line spanning edge-to-edge behind content without adding scroll */}
+        <div className="pointer-events-none absolute inset-x-0 top-1/2 z-0 h-px w-full bg-slate-200" />
 
-      <div className="space-y-8 md:space-y-12">
-        {siteConfig.roadmap.phases.map((phase, index) => {
-          const isLast = index === siteConfig.roadmap.phases.length - 1;
-          return (
-            <FadeIn key={phase.title} delay={0.1 * index} className="relative">
-              <div className="flex items-start gap-6">
-                {/* Timeline dot */}
-                <div className="relative flex-shrink-0">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-brand-primary shadow-md ring-4 ring-brand-primary/10 md:h-10 md:w-10">
-                    <div className="h-2 w-2 rounded-full bg-white md:h-3 md:w-3" />
-                  </div>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-8 md:gap-10">
+          {siteConfig.roadmap.phases.map((phase, index) => {
+            const isEven = index % 2 === 0;
+            return (
+              <FadeIn
+                key={phase.title}
+                delay={0.06 * index}
+                className="relative flex flex-col items-center"
+              >
+                {isEven && (
+                  <>
+                    <Card className="z-[1] mb-4 flex flex-col gap-2 border-slate-200/80 bg-white/90 px-4 py-3 text-center text-sm md:gap-3 md:text-base">
+                      <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-wide md:text-xs">
+                        <Badge className="bg-brand-primary/10 text-brand-primary ring-0">
+                          {phase.period}
+                        </Badge>
+                        <Badge
+                          variant="outline"
+                          className={`border px-3 py-1 ${
+                            phase.status === "Berjalan"
+                              ? "border-green-200 bg-green-50 text-green-700"
+                              : phase.status === "Progres"
+                              ? "border-blue-200 bg-blue-50 text-blue-700"
+                              : phase.status === "Terjadwal"
+                              ? "border-orange-200 bg-orange-50 text-orange-700"
+                              : "border-slate-200 bg-slate-50 text-slate-600"
+                          }`}
+                        >
+                          {phase.status}
+                        </Badge>
+                      </div>
+                      <span className="text-sm font-semibold text-slate-900 md:text-base">
+                        {phase.title}
+                      </span>
+                      <p className="text-xs leading-relaxed text-slate-600 md:text-sm">
+                        {phase.detail}
+                      </p>
+                    </Card>
+                    <GrowY className="mb-3 h-10 w-px bg-gradient-to-b from-brand-primary/60 via-brand-primary/30 to-transparent md:h-12" />
+                  </>
+                )}
+
+                {/* Marker on the line */}
+                <div className="relative z-[2] flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-base font-semibold text-brand-primary shadow-sm md:h-14 md:w-14">
+                  {String(index + 1).padStart(2, "0")}
                 </div>
 
-                {/* Content */}
-                <div className="flex min-w-0 flex-1 flex-col gap-2 pb-8 md:gap-3">
-                  {/* Status and period badges */}
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="inline-flex items-center rounded-full bg-brand-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-primary">
-                      {phase.period}
-                    </span>
-                    <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide ${
-                      phase.status === 'Berjalan'
-                        ? 'border-green-200 bg-green-50 text-green-700'
-                        : phase.status === 'Progres'
-                        ? 'border-blue-200 bg-blue-50 text-blue-700'
-                        : phase.status === 'Terjadwal'
-                        ? 'border-orange-200 bg-orange-50 text-orange-700'
-                        : 'border-slate-200 bg-slate-50 text-slate-600'
-                    }`}>
-                      {phase.status}
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-xl font-semibold text-slate-900 md:text-2xl">
-                    {phase.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-base text-slate-600 md:text-lg leading-relaxed">
-                    {phase.detail}
-                  </p>
-                </div>
-              </div>
-            </FadeIn>
-          );
-        })}
+                {!isEven && (
+                  <>
+                    <GrowY className="mt-3 h-10 w-px bg-gradient-to-b from-brand-primary/60 via-brand-primary/30 to-transparent md:h-12" />
+                    <Card className="z-[1] mt-4 flex flex-col gap-2 border-slate-200/80 bg-white/90 px-4 py-3 text-center text-sm md:gap-3 md:text-base">
+                      <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-wide md:text-xs">
+                        <Badge className="bg-brand-primary/10 text-brand-primary ring-0">
+                          {phase.period}
+                        </Badge>
+                        <Badge
+                          variant="outline"
+                          className={`border px-3 py-1 ${
+                            phase.status === "Berjalan"
+                              ? "border-green-200 bg-green-50 text-green-700"
+                              : phase.status === "Progres"
+                              ? "border-blue-200 bg-blue-50 text-blue-700"
+                              : phase.status === "Terjadwal"
+                              ? "border-orange-200 bg-orange-50 text-orange-700"
+                              : "border-slate-200 bg-slate-50 text-slate-600"
+                          }`}
+                        >
+                          {phase.status}
+                        </Badge>
+                      </div>
+                      <span className="text-sm font-semibold text-slate-900 md:text-base">
+                        {phase.title}
+                      </span>
+                      <p className="text-xs leading-relaxed text-slate-600 md:text-sm">
+                        {phase.detail}
+                      </p>
+                    </Card>
+                  </>
+                )}
+              </FadeIn>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
 }
+

@@ -30,6 +30,12 @@ export default function Header() {
     return pathname.startsWith(href);
   };
 
+  const isItemActive = (href: string, children?: { href: string }[]) => {
+    if (isActive(href)) return true;
+    if (!children) return false;
+    return children.some((child) => isActive(child.href));
+  };
+
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
@@ -54,21 +60,55 @@ export default function Header() {
           </Link>
 
           <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
-            {siteConfig.navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "relative pb-1 transition-colors hover:text-slate-900",
-                  isActive(item.href) && "text-brand-primary",
-                )}
-              >
-                {item.label}
-                {isActive(item.href) && (
-                  <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-brand-primary" />
-                )}
-              </Link>
-            ))}
+            {siteConfig.navigation.map((item) =>
+              item.children ? (
+                <div key={item.href} className="group relative">
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "relative flex items-center gap-1 pb-1 transition-colors hover:text-slate-900",
+                      isItemActive(item.href, item.children) && "text-brand-primary",
+                    )}
+                  >
+                    {item.label}
+                    <span className="text-[10px] transition-transform group-hover:translate-y-[1px]">
+                      ▾
+                    </span>
+                    {isItemActive(item.href, item.children) && (
+                      <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-brand-primary" />
+                    )}
+                  </Link>
+                  <div className="invisible absolute left-0 top-full z-30 mt-2 w-48 rounded-xl border border-slate-200 bg-white p-2 opacity-0 shadow-lg transition duration-150 group-hover:visible group-hover:opacity-100">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        className={cn(
+                          "block rounded-lg px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900",
+                          isActive(child.href) && "bg-brand-primary/10 text-brand-primary",
+                        )}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "relative pb-1 transition-colors hover:text-slate-900",
+                    isActive(item.href) && "text-brand-primary",
+                  )}
+                >
+                  {item.label}
+                  {isActive(item.href) && (
+                    <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-brand-primary" />
+                  )}
+                </Link>
+              ),
+            )}
           </nav>
 
           <div className="hidden md:block">
@@ -121,19 +161,53 @@ export default function Header() {
         )}
       >
         <div className="flex flex-col gap-3 px-6 pt-20 pb-8">
-          {siteConfig.navigation.map((item, index) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "rounded-lg px-4 py-3 text-base font-medium text-slate-700 transition-colors hover:bg-slate-100",
-                isActive(item.href) && "bg-brand-primary/10 text-brand-primary",
-              )}
-              style={{ transitionDelay: isMenuOpen ? `${index * 30}ms` : "0ms" }}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {siteConfig.navigation.map((item, index) =>
+            item.children ? (
+              <div
+                key={item.href}
+                className="flex flex-col gap-1 rounded-lg px-4 py-3 text-base font-medium text-slate-700"
+                style={{ transitionDelay: isMenuOpen ? `${index * 30}ms` : "0ms" }}
+              >
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "flex items-center justify-between rounded-md px-2 py-1 hover:bg-slate-100",
+                    isItemActive(item.href, item.children) &&
+                      "bg-brand-primary/10 text-brand-primary",
+                  )}
+                >
+                  {item.label}
+                  <span className="text-sm text-slate-500">▾</span>
+                </Link>
+                <div className="ml-2 flex flex-col gap-1">
+                  {item.children.map((child) => (
+                    <Link
+                      key={child.href}
+                      href={child.href}
+                      className={cn(
+                        "rounded-md px-3 py-2 text-sm font-normal text-slate-700 hover:bg-slate-100",
+                        isActive(child.href) && "bg-brand-primary/10 text-brand-primary",
+                      )}
+                    >
+                      {child.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "rounded-lg px-4 py-3 text-base font-medium text-slate-700 transition-colors hover:bg-slate-100",
+                  isActive(item.href) && "bg-brand-primary/10 text-brand-primary",
+                )}
+                style={{ transitionDelay: isMenuOpen ? `${index * 30}ms` : "0ms" }}
+              >
+                {item.label}
+              </Link>
+            ),
+          )}
 
           <div className="mt-4 border-t border-slate-200 pt-4">
             <CTAButton href={mailto} className="w-full justify-center">

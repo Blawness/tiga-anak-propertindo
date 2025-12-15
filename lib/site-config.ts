@@ -33,14 +33,21 @@ export const siteConfig = {
   },
   navigation: [
     { label: "Home", href: "/" },
-    { label: "Tentang Kami", href: "/tentang-kami" },
+    {
+      label: "Tentang Kami",
+      href: "/tentang-kami",
+      children: [
+        { label: "Tentang Kami", href: "/tentang-kami" },
+        { label: "Proyek", href: "/proyek" },
+        { label: "Legalitas", href: "/legalitas" },
+      ],
+    },
     { label: "Layanan", href: "/layanan" },
-    { label: "Proyek", href: "/proyek" },
-    { label: "Legalitas", href: "/legalitas" },
+    { label: "Artikel", href: "/artikel" },
     { label: "Kontak", href: "/kontak" },
   ],
   contact: {
-    email: "contact@tga-properindo.com",
+    email: "tigaanakpropertindo@gmail.comm",
     whatsapp: "",
   },
   hero: {
@@ -158,6 +165,20 @@ export const siteConfig = {
         "Fokus layanan untuk menyiapkan proyek yang tertata, patuh regulasi, dan siap dijalankan.",
       pillarsIntro:
         "Setiap layanan memiliki standar dokumentasi, mitigasi risiko, dan pengendalian kualitas.",
+    },
+    article: {
+      title: "Artikel",
+      subtitle:
+        "Kurasi wawasan properti, tata kelola, dan kemitraan yang sedang kami siapkan untuk rilis resmi.",
+      statusTitle: "Status rilis",
+      statusNote:
+        "Status saat ini: Coming Soon. Kami memfinalkan panduan editorial dan kurasi topik sebelum publikasi.",
+      contentNote:
+        "Konten akan berfokus pada kesiapan proyek, mitigasi risiko, tata kelola, dan praktik kemitraan yang berimbang.",
+      nextStepNote:
+        "Untuk permintaan media kit atau ringkasan profil perusahaan, silakan hubungi kami melalui email.",
+      contactNote:
+        "Sampaikan kebutuhan materi atau topik wawasan yang ingin diprioritaskan.",
     },
     project: {
       title: "Proyek",
