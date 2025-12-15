@@ -78,19 +78,21 @@ export default function Header() {
                       <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-brand-primary" />
                     )}
                   </Link>
-                  <div className="invisible absolute left-0 top-full z-30 mt-2 w-48 rounded-xl border border-slate-200 bg-white p-2 opacity-0 shadow-lg transition duration-150 group-hover:visible group-hover:opacity-100">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        className={cn(
-                          "block rounded-lg px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900",
-                          isActive(child.href) && "bg-brand-primary/10 text-brand-primary",
-                        )}
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
+                  <div className="invisible absolute left-0 top-full z-30 pt-2 opacity-0 transition duration-150 group-hover:visible group-hover:opacity-100">
+                    <div className="w-48 rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className={cn(
+                            "block rounded-lg px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900",
+                            isActive(child.href) && "bg-brand-primary/10 text-brand-primary",
+                          )}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 </div>
               ) : (
