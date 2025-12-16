@@ -28,7 +28,13 @@ export default function PageHero({
         aria-hidden
       />
       <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/70 to-slate-900/40" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.08),transparent_40%),radial-gradient(circle_at_80%_20%,rgba(111,55,21,0.16),transparent_35%)]" />
+      <div 
+        className="absolute inset-0 opacity-100"
+        style={{
+          backgroundImage: `radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08), transparent 40%), radial-gradient(circle at 80% 20%, rgba(111,55,21,0.16), transparent 35%)`
+        }}
+        aria-hidden
+      />
 
       <div className="section-shell relative flex flex-col gap-6 py-16 md:py-20 lg:py-24">
         <FadeIn className="flex flex-col gap-3 md:max-w-3xl">
@@ -37,7 +43,7 @@ export default function PageHero({
               {eyebrow}
             </Badge>
           ) : null}
-          <h1 className="font-heading text-4xl font-semibold leading-tight text-white md:text-5xl lg:text-6xl">
+          <h1 className="font-heading text-4xl font-semibold leading-tight !text-white md:text-5xl lg:text-6xl">
             {title}
           </h1>
           {subtitle ? (
@@ -46,7 +52,7 @@ export default function PageHero({
         </FadeIn>
         {ctaLabel && ctaHref ? (
           <FadeIn delay={0.05}>
-            <CTAButton href={ctaHref} variant="secondary">
+            <CTAButton href={ctaHref}>
               {ctaLabel}
             </CTAButton>
           </FadeIn>

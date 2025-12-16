@@ -59,7 +59,7 @@ export default function Header() {
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
+          <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
             {siteConfig.navigation.map((item) =>
               item.children ? (
                 <div key={item.href} className="group relative">
@@ -67,7 +67,9 @@ export default function Header() {
                     href={item.href}
                     className={cn(
                       "relative flex items-center gap-1 pb-1 transition-colors hover:text-slate-900",
-                      isItemActive(item.href, item.children) && "text-brand-primary",
+                      isItemActive(item.href, item.children) 
+                        ? "text-[#6F3715]" 
+                        : "text-slate-600",
                     )}
                   >
                     {item.label}
@@ -85,8 +87,10 @@ export default function Header() {
                           key={child.href}
                           href={child.href}
                           className={cn(
-                            "block rounded-lg px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900",
-                            isActive(child.href) && "bg-brand-primary/10 text-brand-primary",
+                            "block rounded-lg px-3 py-2 text-sm transition-all duration-200 hover:bg-slate-100 hover:text-slate-900",
+                            isActive(child.href) 
+                              ? "text-[#6F3715] bg-brand-primary/10" 
+                              : "text-slate-700",
                           )}
                         >
                           {child.label}
@@ -101,7 +105,9 @@ export default function Header() {
                   href={item.href}
                   className={cn(
                     "relative pb-1 transition-colors hover:text-slate-900",
-                    isActive(item.href) && "text-brand-primary",
+                    isActive(item.href) 
+                      ? "text-[#6F3715]" 
+                      : "text-slate-600",
                   )}
                 >
                   {item.label}
@@ -175,7 +181,7 @@ export default function Header() {
                   className={cn(
                     "flex items-center justify-between rounded-md px-2 py-1 hover:bg-slate-100",
                     isItemActive(item.href, item.children) &&
-                      "bg-brand-primary/10 text-brand-primary",
+                      "bg-brand-primary/10 text-[#6F3715]",
                   )}
                 >
                   {item.label}
@@ -187,8 +193,10 @@ export default function Header() {
                       key={child.href}
                       href={child.href}
                       className={cn(
-                        "rounded-md px-3 py-2 text-sm font-normal text-slate-700 hover:bg-slate-100",
-                        isActive(child.href) && "bg-brand-primary/10 text-brand-primary",
+                        "rounded-md px-3 py-2 text-sm font-normal transition-all duration-200 hover:bg-slate-100 hover:text-brand-primary",
+                        isActive(child.href) 
+                          ? "text-[#6F3715] bg-brand-primary/10" 
+                          : "text-slate-700",
                       )}
                     >
                       {child.label}
@@ -201,8 +209,10 @@ export default function Header() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "rounded-lg px-4 py-3 text-base font-medium text-slate-700 transition-colors hover:bg-slate-100",
-                  isActive(item.href) && "bg-brand-primary/10 text-brand-primary",
+                  "rounded-lg px-4 py-3 text-base font-medium transition-colors hover:bg-slate-100",
+                  isActive(item.href) 
+                    ? "text-[#6F3715] bg-brand-primary/10" 
+                    : "text-slate-700",
                 )}
                 style={{ transitionDelay: isMenuOpen ? `${index * 30}ms` : "0ms" }}
               >

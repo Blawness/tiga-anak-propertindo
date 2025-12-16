@@ -11,13 +11,13 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variantClasses: Record<Variant, string> = {
   primary:
-    "bg-brand-primary text-white shadow-sm hover:bg-brand-primary/90 focus-visible:ring-2 focus-visible:ring-brand-primary/40",
+    "bg-[#6F3715] !text-white shadow-sm hover:bg-[#B1846A] hover:shadow-md focus-visible:ring-2 focus-visible:ring-brand-primary/40 active:scale-[0.98]",
   secondary:
-    "bg-white text-slate-900 border border-slate-200 shadow-sm hover:border-brand-primary/40 hover:bg-white focus-visible:ring-2 focus-visible:ring-brand-primary/30",
+    "bg-slate-900 !text-white border border-slate-700 shadow-sm hover:border-brand-primary/40 hover:bg-slate-800 hover:shadow-md focus-visible:ring-2 focus-visible:ring-brand-primary/30 active:scale-[0.98]",
   ghost:
-    "text-slate-900 hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-brand-primary/30",
+    "text-slate-900 hover:bg-slate-100 hover:text-brand-primary focus-visible:ring-2 focus-visible:ring-brand-primary/30 active:scale-[0.98]",
   outline:
-    "border border-slate-200 text-slate-900 hover:border-brand-primary/40 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-brand-primary/30",
+    "border border-slate-200 text-slate-900 hover:border-brand-primary/40 hover:bg-slate-50 hover:text-brand-primary hover:shadow-sm focus-visible:ring-2 focus-visible:ring-brand-primary/30 active:scale-[0.98]",
 };
 
 const sizeClasses: Record<Size, string> = {
@@ -27,7 +27,7 @@ const sizeClasses: Record<Size, string> = {
 };
 
 export const buttonBase =
-  "inline-flex items-center justify-center whitespace-nowrap rounded-lg font-semibold transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-60";
+  "inline-flex items-center justify-center whitespace-nowrap rounded-lg font-semibold transition-all duration-200 ease-in-out focus-visible:outline-none disabled:pointer-events-none disabled:opacity-60";
 
 export function buttonVariants({
   variant = "primary",

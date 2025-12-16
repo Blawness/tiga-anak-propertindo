@@ -72,7 +72,6 @@ export default function LayananPage() {
                     <div className="mt-auto pt-2">
                       <CTAButton
                         href={`/layanan/${service.slug}`}
-                        variant="outline"
                         className="w-full justify-center text-sm"
                       >
                         Selengkapnya

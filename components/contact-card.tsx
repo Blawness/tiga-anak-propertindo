@@ -36,7 +36,7 @@ export default function ContactCard({
             </p>
             <a
               href={emailHref}
-              className="text-base font-semibold text-slate-900 hover:text-brand-primary"
+              className="text-base font-semibold text-slate-900 transition-colors duration-200 hover:text-brand-primary"
             >
               {email}
             </a>
@@ -48,7 +48,7 @@ export default function ContactCard({
               </p>
               <a
                 href={whatsappHref}
-                className="text-base font-semibold text-slate-900 hover:text-brand-primary"
+                className="text-base font-semibold text-slate-900 transition-colors duration-200 hover:text-brand-primary"
               >
                 {whatsapp}
               </a>

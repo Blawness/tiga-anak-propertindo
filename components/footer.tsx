@@ -41,7 +41,7 @@ export default function Footer() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="rounded-md px-1 py-0.5 transition-colors hover:text-brand-primary"
+                  className="rounded-md px-1 py-0.5 transition-colors duration-200 hover:text-brand-primary"
                 >
                   {item.label}
                 </Link>
@@ -54,14 +54,14 @@ export default function Footer() {
             </p>
             <a
               href={`mailto:${siteConfig.contact.email}`}
-              className="font-semibold text-slate-900 hover:text-brand-primary"
+              className="font-semibold text-slate-900 transition-colors duration-200 hover:text-brand-primary"
             >
               {siteConfig.contact.email}
             </a>
             {siteConfig.contact.whatsapp ? (
               <a
                 href={`https://wa.me/${siteConfig.contact.whatsapp}`}
-                className="font-semibold text-slate-900 hover:text-brand-primary"
+                className="font-semibold text-slate-900 transition-colors duration-200 hover:text-brand-primary"
               >
                 {siteConfig.contact.whatsapp}
               </a>

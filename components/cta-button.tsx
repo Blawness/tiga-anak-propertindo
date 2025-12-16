@@ -22,6 +22,7 @@ export default function CTAButton({
       className={cn(
         buttonVariants({ variant, size: "lg" }),
         "rounded-full px-6",
+        (variant === "primary" || variant === "secondary") && "!text-white",
         className,
       )}
     >
