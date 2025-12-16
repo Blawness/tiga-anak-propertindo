@@ -8,6 +8,7 @@ import { FadeIn } from "@/components/motion";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import CTAButton from "@/components/cta-button";
 
 export const metadata = buildMetadata({
   title: "Layanan",
@@ -33,24 +34,24 @@ export default function LayananPage() {
         description={siteConfig.pages.services.pillarsIntro}
       >
         <div className="grid gap-6 md:grid-cols-2">
-          {siteConfig.focusAreas.map((area, index) => {
+          {siteConfig.coreServices.map((service, index) => {
             const images = [
-              siteConfig.images.planning,
+              siteConfig.images.property,
+              siteConfig.images.legal,
               siteConfig.images.handshake,
-              siteConfig.images.construction,
-              siteConfig.images.documents,
+              siteConfig.images.collaboration,
             ];
             return (
               <div
-                key={area.title}
-                className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
+                key={service.title}
+                className="group flex flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
               >
-                <FadeIn delay={0.05 * index}>
+                <FadeIn delay={0.05 * index} className="flex h-full flex-col">
                   {/* Image */}
-                  <div className="relative h-44 overflow-hidden">
+                  <div className="relative h-44 shrink-0 overflow-hidden">
                     <Image
                       src={images[index]}
-                      alt={area.title}
+                      alt={service.title}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 50vw"
@@ -61,13 +62,22 @@ export default function LayananPage() {
                     </div>
                   </div>
                   {/* Content */}
-                  <div className="flex flex-col gap-3 p-6">
+                  <div className="flex flex-1 flex-col gap-3 p-6">
                     <h3 className="text-xl font-semibold text-slate-900">
-                      {area.title}
+                      {service.title}
                     </h3>
                     <p className="text-base text-slate-600">
-                      {area.description}
+                      {service.shortDescription}
                     </p>
+                    <div className="mt-auto pt-2">
+                      <CTAButton
+                        href={`/layanan/${service.slug}`}
+                        variant="outline"
+                        className="w-full justify-center text-sm"
+                      >
+                        Selengkapnya
+                      </CTAButton>
+                    </div>
                   </div>
                 </FadeIn>
               </div>

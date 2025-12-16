@@ -47,7 +47,7 @@ export const siteConfig = {
     { label: "Kontak", href: "/kontak" },
   ],
   contact: {
-    email: "tigaanakpropertindo@gmail.comm",
+    email: "tigaanakpropertindo@gmail.com",
     whatsapp: "",
   },
   hero: {
@@ -56,26 +56,58 @@ export const siteConfig = {
       "Kami menyiapkan fondasi, tata kelola, dan kemitraan yang rapi agar setiap langkah pengembangan properti berjalan terstruktur dan prudent.",
     ctaLabel: "Hubungi Kami",
   },
-  focusAreas: [
+  coreServices: [
     {
-      title: "Perencanaan & studi kelayakan",
+      title: "Sewa lahan/properti",
+      slug: "sewa-lahan",
+      shortDescription: "Sewa gudang, properti komersial, dan lahan strategis.",
       description:
-        "Kajian awal yang terukur untuk memastikan arah proyek sesuai regulasi dan kebutuhan pasar.",
+        "Layanan penyewaan aset properti yang mencakup gudang logistik, ruang usaha, hingga lahan kosong siap bangun dengan status legalitas yang jelas.",
+      features: [
+        "Sewa Gudang & Logistik",
+        "Sewa Lahan Komersial",
+        "Sewa Ruang Usaha",
+        "Legalitas Sewa Terjamin",
+      ],
+    },
+    {
+      title: "Konsultasi & Pengurusan legalitas",
+      slug: "konsultasi-legalitas",
+      shortDescription: "Bantuan hukum dan perizinan properti terpadu.",
+      description:
+        "Jasa konsultasi mendalam mengenai aspek hukum properti serta pengurusan dokumen perizinan agar proyek berjalan patuh regulasi.",
+      features: [
+        "Verifikasi Dokumen Lahan",
+        "Pengurusan IMB/PBG",
+        "Analisis Zonasi & Tata Ruang",
+        "Penyelesaian Sengketa Lahan",
+      ],
+    },
+    {
+      title: "Jual beli properti/lahan",
+      slug: "jual-beli",
+      shortDescription: "Transaksi jual beli aman dan transparan.",
+      description:
+        "Fasilitasi transaksi jual beli aset properti dengan proses yang transparan, mulai dari valuasi, negosiasi, hingga peralihan hak.",
+      features: [
+        "Jual Beli Lahan Matang",
+        "Jual Beli Properti Komersial",
+        "Valuasi Aset",
+        "Due Diligence Transaksi",
+      ],
     },
     {
       title: "Kemitraan lahan & perizinan",
+      slug: "kemitraan-perizinan",
+      shortDescription: "Kolaborasi pengembangan lahan yang saling menguntungkan.",
       description:
-        "Pendekatan kolaboratif dengan pemilik lahan dan pemangku kepentingan, disertai kepatuhan dokumen.",
-    },
-    {
-      title: "Manajemen konstruksi",
-      description:
-        "Pengawasan jadwal dan kualitas konstruksi dengan fokus pada keselamatan dan efisiensi.",
-    },
-    {
-      title: "Pengelolaan risiko & tata kelola",
-      description:
-        "Standar pengendalian internal untuk menjaga transparansi dan akuntabilitas setiap tahap.",
+        "Skema kerjasama (Joint Venture/Joint Operation) untuk pemilik lahan yang ingin mengembangkan asetnya dengan dukungan perizinan dan manajemen proyek profesional.",
+      features: [
+        "Skema Kerjasama (JV/JO)",
+        "Studi Kelayakan Proyek",
+        "Manajemen Perizinan Terpadu",
+        "Bagi Hasil Transparan",
+      ],
     },
   ],
   credibility: [

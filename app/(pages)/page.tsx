@@ -53,21 +53,21 @@ export default function HomePage() {
         description="Layanan prioritas untuk menyiapkan proyek yang tertata, patuh regulasi, dan siap dieksekusi."
       >
         <div className="grid gap-6 md:grid-cols-2">
-          {siteConfig.focusAreas.map((area, index) => {
+          {siteConfig.coreServices.map((service, index) => {
             const images = [
-              siteConfig.images.planning,
+              siteConfig.images.property,
+              siteConfig.images.legal,
               siteConfig.images.handshake,
-              siteConfig.images.construction,
-              siteConfig.images.documents,
+              siteConfig.images.collaboration,
             ];
 
             return (
-              <FadeIn key={area.title} delay={0.05 * index} className="h-full">
+              <FadeIn key={service.title} delay={0.05 * index} className="h-full">
                 <Card className="group flex h-full flex-col overflow-hidden border-slate-200">
                   <div className="relative h-44 overflow-hidden">
                     <Image
                       src={images[index]}
-                      alt={area.title}
+                      alt={service.title}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 50vw"
@@ -77,15 +77,26 @@ export default function HomePage() {
                       <Badge className="bg-white/90 text-brand-primary ring-0">
                         Layanan {String(index + 1).padStart(2, "0")}
                       </Badge>
-                      <Badge variant="outline">Fokus</Badge>
+                      <Badge variant="outline">Unggulan</Badge>
                     </div>
                   </div>
 
                   <div className="flex flex-1 flex-col gap-3 p-6">
                     <h3 className="text-xl font-semibold text-slate-900">
-                      {area.title}
+                      {service.title}
                     </h3>
-                    <p className="text-base text-slate-600">{area.description}</p>
+                    <p className="text-base text-slate-600 line-clamp-3">
+                      {service.shortDescription}
+                    </p>
+                    <div className="mt-auto pt-2">
+                      <CTAButton
+                        href={`/layanan/${service.slug}`}
+                        variant="outline"
+                        className="w-full justify-center text-sm"
+                      >
+                        Selengkapnya
+                      </CTAButton>
+                    </div>
                   </div>
                 </Card>
               </FadeIn>
