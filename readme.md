@@ -66,3 +66,51 @@ Perintah harian:
 ## Catatan Penting
 - Hindari klaim pemasaran berlebihan; fokus pada legitimasi, transparansi, dan kesiapan proyek.
 - Jangan menambahkan listing proyek aktif atau data palsu sebelum siap publikasi.
+
+## WordPress GraphQL Integration
+
+Proyek ini terintegrasi dengan WordPress melalui WPGraphQL untuk konten blog.
+
+### Setup Environment
+
+Tambahkan variabel berikut di `.env.local`:
+
+```
+WP_GRAPHQL_ENDPOINT=https://blueviolet-ant-748284.hostingersite.com/graphql
+```
+
+### Testing dengan GraphiQL
+
+Akses GraphiQL IDE untuk testing query:
+1. Buka `https://blueviolet-ant-748284.hostingersite.com/graphql` di browser
+2. Gunakan query berikut untuk testing:
+
+```graphql
+query {
+  posts(first: 3) {
+    nodes {
+      id
+      title
+      slug
+      date
+      excerpt
+      author { node { name } }
+      featuredImage { node { sourceUrl altText } }
+    }
+  }
+}
+```
+
+### Routes
+
+- `/artikel` - Daftar artikel blog
+- `/artikel/[slug]` - Halaman detail artikel
+
+### Troubleshooting
+
+| Masalah | Penyebab | Solusi |
+|---------|----------|--------|
+| `featuredImage` null | Post tidak memiliki featured image di WordPress | Tambahkan featured image di WP Admin |
+| Error 401/403 | Endpoint memerlukan auth | Pastikan posts bersifat public |
+| Data tidak update | Cache aktif (60 detik) | Tunggu revalidation atau restart dev server |
+| Image tidak muncul | Hostname tidak terdaftar | Periksa `next.config.ts` remotePatterns |
