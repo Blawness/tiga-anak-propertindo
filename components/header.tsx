@@ -67,8 +67,8 @@ export default function Header() {
                     href={item.href}
                     className={cn(
                       "relative flex items-center gap-1 pb-1 transition-colors hover:text-slate-900",
-                      isItemActive(item.href, item.children) 
-                        ? "text-[#6F3715]" 
+                      isItemActive(item.href, item.children)
+                        ? "text-brand-primary font-semibold"
                         : "text-slate-600",
                     )}
                   >
@@ -88,8 +88,8 @@ export default function Header() {
                           href={child.href}
                           className={cn(
                             "block rounded-lg px-3 py-2 text-sm transition-all duration-200 hover:bg-slate-100 hover:text-slate-900",
-                            isActive(child.href) 
-                              ? "text-[#6F3715] bg-brand-primary/10" 
+                            isActive(child.href)
+                              ? "text-brand-primary font-semibold bg-brand-primary/10"
                               : "text-slate-700",
                           )}
                         >
@@ -105,8 +105,8 @@ export default function Header() {
                   href={item.href}
                   className={cn(
                     "relative pb-1 transition-colors hover:text-slate-900",
-                    isActive(item.href) 
-                      ? "text-[#6F3715]" 
+                    isActive(item.href)
+                      ? "text-brand-primary font-semibold"
                       : "text-slate-600",
                   )}
                 >
@@ -181,7 +181,7 @@ export default function Header() {
                   className={cn(
                     "flex items-center justify-between rounded-md px-2 py-1 hover:bg-slate-100",
                     isItemActive(item.href, item.children) &&
-                      "bg-brand-primary/10 text-[#6F3715]",
+                    "bg-brand-primary/10 text-brand-primary font-semibold",
                   )}
                 >
                   {item.label}
@@ -194,8 +194,8 @@ export default function Header() {
                       href={child.href}
                       className={cn(
                         "rounded-md px-3 py-2 text-sm font-normal transition-all duration-200 hover:bg-slate-100 hover:text-brand-primary",
-                        isActive(child.href) 
-                          ? "text-[#6F3715] bg-brand-primary/10" 
+                        isActive(child.href)
+                          ? "text-brand-primary font-semibold bg-brand-primary/10"
                           : "text-slate-700",
                       )}
                     >
@@ -210,8 +210,8 @@ export default function Header() {
                 href={item.href}
                 className={cn(
                   "rounded-lg px-4 py-3 text-base font-medium transition-colors hover:bg-slate-100",
-                  isActive(item.href) 
-                    ? "text-[#6F3715] bg-brand-primary/10" 
+                  isActive(item.href)
+                    ? "text-brand-primary font-semibold bg-brand-primary/10"
                     : "text-slate-700",
                 )}
                 style={{ transitionDelay: isMenuOpen ? `${index * 30}ms` : "0ms" }}

@@ -34,10 +34,7 @@ a {
   text-decoration: none;
 }
 
-/* Override untuk navbar links */
-nav a {
-  color: unset;
-}
+/* Navbar link colors handled by Tailwind utilities */
 
 :focus-visible {
   outline: 2px solid #6f3715;
@@ -53,5 +50,3 @@ nav a {
     @apply rounded-3xl border border-slate-200 bg-white/90 shadow-sm backdrop-blur-sm;
   }
 }
-
-
