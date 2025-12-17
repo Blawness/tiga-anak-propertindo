@@ -208,12 +208,134 @@ const CREATE_POST_MUTATION = `
 `;
 
 /**
- * Set featured image on a post via REST API.
- * WPGraphQL doesn't support featuredImageId in mutations on this installation.
+ * Get or create a category by name via REST API.
  */
-async function setFeaturedImageViaRest(postId: number, mediaId: number): Promise<void> {
+async function getOrCreateCategory(categoryName: string): Promise<number> {
     const restBase = getWpRestBase();
     const token = getJwtToken();
+
+    // First, try to find existing category
+    const searchResponse = await fetch(
+        `${restBase}/categories?search=${encodeURIComponent(categoryName)}&per_page=100`,
+        {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        }
+    );
+
+    if (searchResponse.ok) {
+        const categories = await searchResponse.json() as Array<{ id: number; name: string }>;
+        const existing = categories.find((cat) => cat.name.toLowerCase() === categoryName.toLowerCase());
+        if (existing) {
+            return existing.id;
+        }
+    }
+
+    // Create new category if not found
+    const createResponse = await fetch(`${restBase}/categories`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            name: categoryName,
+        }),
+    });
+
+    if (!createResponse.ok) {
+        const errorText = await createResponse.text();
+        throw new Error(`Failed to create category "${categoryName}" (${createResponse.status}): ${errorText}`);
+    }
+
+    const newCategory = await createResponse.json() as { id: number };
+    return newCategory.id;
+}
+
+/**
+ * Get or create a tag by name via REST API.
+ */
+async function getOrCreateTag(tagName: string): Promise<number> {
+    const restBase = getWpRestBase();
+    const token = getJwtToken();
+
+    // First, try to find existing tag
+    const searchResponse = await fetch(
+        `${restBase}/tags?search=${encodeURIComponent(tagName)}&per_page=100`,
+        {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        }
+    );
+
+    if (searchResponse.ok) {
+        const tags = await searchResponse.json() as Array<{ id: number; name: string }>;
+        const existing = tags.find((tag) => tag.name.toLowerCase() === tagName.toLowerCase());
+        if (existing) {
+            return existing.id;
+        }
+    }
+
+    // Create new tag if not found
+    const createResponse = await fetch(`${restBase}/tags`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            name: tagName,
+        }),
+    });
+
+    if (!createResponse.ok) {
+        const errorText = await createResponse.text();
+        throw new Error(`Failed to create tag "${tagName}" (${createResponse.status}): ${errorText}`);
+    }
+
+    const newTag = await createResponse.json() as { id: number };
+    return newTag.id;
+}
+
+/**
+ * Update post metadata via REST API.
+ * Sets featured image, categories, tags, and SEO meta.
+ */
+async function updatePostMetadata(
+    postId: number,
+    mediaId: number,
+    categoryIds: number[],
+    tagIds: number[],
+    seo: ArticleSEO
+): Promise<void> {
+    const restBase = getWpRestBase();
+    const token = getJwtToken();
+
+    const updateData: Record<string, unknown> = {
+        featured_media: mediaId,
+    };
+
+    // Add categories if any
+    if (categoryIds.length > 0) {
+        updateData.categories = categoryIds;
+    }
+
+    // Add tags if any
+    if (tagIds.length > 0) {
+        updateData.tags = tagIds;
+    }
+
+    // Add Yoast SEO meta if available
+    // Yoast SEO uses meta fields: _yoast_wpseo_title, _yoast_wpseo_metadesc, _yoast_wpseo_focuskw
+    if (seo) {
+        updateData.meta = {
+            _yoast_wpseo_title: seo.meta_title || "",
+            _yoast_wpseo_metadesc: seo.meta_description || "",
+            _yoast_wpseo_focuskw: seo.focus_keyword || "",
+        };
+    }
 
     const response = await fetch(`${restBase}/posts/${postId}`, {
         method: "POST",
@@ -221,20 +343,18 @@ async function setFeaturedImageViaRest(postId: number, mediaId: number): Promise
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            featured_media: mediaId,
-        }),
+        body: JSON.stringify(updateData),
     });
 
     if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(`Failed to set featured image (${response.status}): ${errorText}`);
+        throw new Error(`Failed to update post metadata (${response.status}): ${errorText}`);
     }
 }
 
 /**
  * Create a draft post in WordPress via WPGraphQL.
- * Uses REST API to set featured image since WPGraphQL doesn't support it.
+ * Uses REST API to set featured image, categories, tags, and SEO meta.
  */
 async function createDraftPost(
     article: Article,
@@ -251,8 +371,36 @@ async function createDraftPost(
     const postDatabaseId = createData.createPost.post.databaseId;
     const postUri = createData.createPost.post.uri;
 
-    // Step 2: Set featured image via REST API
-    await setFeaturedImageViaRest(postDatabaseId, mediaId);
+    // Step 2: Get or create categories and tags
+    const categoryIds: number[] = [];
+    if (article.categories && article.categories.length > 0) {
+        console.log(`[META] Processing ${article.categories.length} categories...`);
+        for (const categoryName of article.categories) {
+            try {
+                const categoryId = await getOrCreateCategory(categoryName);
+                categoryIds.push(categoryId);
+            } catch (error) {
+                console.warn(`[WARN] Failed to process category "${categoryName}": ${error instanceof Error ? error.message : String(error)}`);
+            }
+        }
+    }
+
+    const tagIds: number[] = [];
+    if (article.tags && article.tags.length > 0) {
+        console.log(`[META] Processing ${article.tags.length} tags...`);
+        for (const tagName of article.tags) {
+            try {
+                const tagId = await getOrCreateTag(tagName);
+                tagIds.push(tagId);
+            } catch (error) {
+                console.warn(`[WARN] Failed to process tag "${tagName}": ${error instanceof Error ? error.message : String(error)}`);
+            }
+        }
+    }
+
+    // Step 3: Update post with featured image, categories, tags, and SEO meta
+    await updatePostMetadata(postDatabaseId, mediaId, categoryIds, tagIds, article.seo);
+    console.log(`[META] Updated post with ${categoryIds.length} categories, ${tagIds.length} tags, and SEO meta`);
 
     return {
         uri: postUri,
@@ -353,20 +501,32 @@ async function main(): Promise<void> {
 
     for (const file of files) {
         const filePath = path.join(ARTICLES_DIR, file);
-        const rawContent = fs.readFileSync(filePath, "utf-8");
-        const article: Partial<Article> = JSON.parse(rawContent);
+        
+        try {
+            const rawContent = fs.readFileSync(filePath, "utf-8");
+            const article: Partial<Article> = JSON.parse(rawContent);
 
-        if (article.pushed === true) {
-            skipCount++;
-            console.log(`[SKIP] ${file}: Already pushed`);
-            continue;
-        }
+            if (article.pushed === true) {
+                skipCount++;
+                console.log(`[SKIP] ${file}: Already pushed`);
+                continue;
+            }
 
-        const success = await processArticle(filePath);
-        if (success) {
-            successCount++;
-        } else {
+            const success = await processArticle(filePath);
+            if (success) {
+                successCount++;
+            } else {
+                failCount++;
+            }
+        } catch (error) {
             failCount++;
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            console.error(`[ERROR] ${file}: Failed to parse JSON - ${errorMessage}`);
+            
+            // If it's a JSON parse error, try to show more context
+            if (errorMessage.includes("JSON") || errorMessage.includes("parse")) {
+                console.error(`[ERROR] ${file}: Please check the JSON syntax in this file`);
+            }
         }
         console.log();
     }

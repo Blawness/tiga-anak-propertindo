@@ -112,3 +112,4 @@ export default async function ArtikelPage() {
     </div>
   );
 }
+
