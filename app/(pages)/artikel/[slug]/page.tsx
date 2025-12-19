@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getPostBySlug, stripHtmlAndTruncate } from "@/lib/wpgraphql";
+import { sanitizeWordPressContent } from "@/lib/sanitize-wp-content";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -19,21 +20,37 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     const description = stripHtmlAndTruncate(post.excerpt, 160);
+    const canonicalUrl = `https://tapropertindo.com/artikel/${slug}`;
+
+    // Rewrite WordPress image URL to frontend domain for SEO
+    const getOgImageUrl = () => {
+        if (!post.featuredImage) return undefined;
+        // Replace WordPress domain with frontend domain (needs image proxy or Next.js handled)
+        return post.featuredImage.node.sourceUrl.replace(
+            /https?:\/\/[^\/]*hostingersite\.com/,
+            'https://tapropertindo.com'
+        );
+    };
+    const ogImageUrl = getOgImageUrl();
 
     return {
         title: post.title,
         description,
+        alternates: {
+            canonical: canonicalUrl,
+        },
         openGraph: {
             title: post.title,
             description,
+            url: canonicalUrl,
             type: "article",
             publishedTime: post.date,
             authors: post.author?.node?.name ? [post.author.node.name] : undefined,
-            images: post.featuredImage
+            images: ogImageUrl
                 ? [
                     {
-                        url: post.featuredImage.node.sourceUrl,
-                        alt: post.featuredImage.node.altText || post.title,
+                        url: ogImageUrl,
+                        alt: post.featuredImage?.node.altText || post.title,
                     },
                 ]
                 : undefined,
@@ -42,9 +59,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             card: "summary_large_image",
             title: post.title,
             description,
-            images: post.featuredImage
-                ? [post.featuredImage.node.sourceUrl]
-                : undefined,
+            images: ogImageUrl ? [ogImageUrl] : undefined,
         },
     };
 }
@@ -112,7 +127,7 @@ export default async function ArtikelDetailPage({ params }: PageProps) {
             {/* Content */}
             <div
                 className="article-content"
-                dangerouslySetInnerHTML={{ __html: post.content }}
+                dangerouslySetInnerHTML={{ __html: sanitizeWordPressContent(post.content) }}
             />
 
             {/* Footer */}

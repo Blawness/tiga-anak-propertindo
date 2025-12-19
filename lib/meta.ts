@@ -23,7 +23,7 @@ export function buildMetadata(overrides?: Metadata): Metadata {
     authors: [{ name: "PT Tiga Anak Propertindo" }],
     creator: "PT Tiga Anak Propertindo",
     publisher: "PT Tiga Anak Propertindo",
-    metadataBase: new URL("https://tga-properindo.com"),
+    metadataBase: new URL("https://tapropertindo.com"),
     openGraph: {
       type: "website",
       locale: "id_ID",
