@@ -302,6 +302,9 @@ async function getOrCreateTag(tagName: string): Promise<number> {
 /**
  * Update post metadata via REST API.
  * Sets featured image, categories, tags, and SEO meta.
+ * 
+ * NOTE: Yoast SEO fields require WordPress REST API registration.
+ * See docs/wordpress-yoast-seo-setup.md for setup instructions.
  */
 async function updatePostMetadata(
     postId: number,
@@ -327,14 +330,13 @@ async function updatePostMetadata(
         updateData.tags = tagIds;
     }
 
-    // Add Yoast SEO meta if available
-    // Yoast SEO uses meta fields: _yoast_wpseo_title, _yoast_wpseo_metadesc, _yoast_wpseo_focuskw
+    // Add Yoast SEO fields as registered REST fields
+    // These fields must be registered in WordPress via register_rest_field()
+    // See docs/wordpress-yoast-seo-setup.md for setup instructions
     if (seo) {
-        updateData.meta = {
-            _yoast_wpseo_title: seo.meta_title || "",
-            _yoast_wpseo_metadesc: seo.meta_description || "",
-            _yoast_wpseo_focuskw: seo.focus_keyword || "",
-        };
+        updateData._yoast_wpseo_title = seo.meta_title || "";
+        updateData._yoast_wpseo_metadesc = seo.meta_description || "";
+        updateData._yoast_wpseo_focuskw = seo.focus_keyword || "";
     }
 
     const response = await fetch(`${restBase}/posts/${postId}`, {
@@ -348,7 +350,55 @@ async function updatePostMetadata(
 
     if (!response.ok) {
         const errorText = await response.text();
+
+        // Check if error is related to unregistered meta fields
+        if (errorText.includes("rest_invalid_param") || errorText.includes("yoast")) {
+            console.warn("[WARN] Yoast SEO fields may not be registered in WordPress REST API.");
+            console.warn("[WARN] See docs/wordpress-yoast-seo-setup.md for setup instructions.");
+            console.warn("[WARN] Post created but SEO meta may not be set.");
+
+            // Try again without SEO fields to at least set featured image, categories, and tags
+            delete updateData._yoast_wpseo_title;
+            delete updateData._yoast_wpseo_metadesc;
+            delete updateData._yoast_wpseo_focuskw;
+
+            const retryResponse = await fetch(`${restBase}/posts/${postId}`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updateData),
+            });
+
+            if (!retryResponse.ok) {
+                const retryErrorText = await retryResponse.text();
+                throw new Error(`Failed to update post metadata (${retryResponse.status}): ${retryErrorText}`);
+            }
+
+            return;
+        }
+
         throw new Error(`Failed to update post metadata (${response.status}): ${errorText}`);
+    }
+
+    // Verify SEO fields were set
+    const verifyResponse = await fetch(`${restBase}/posts/${postId}`, {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+        },
+    });
+
+    if (verifyResponse.ok) {
+        const postData = await verifyResponse.json() as any;
+        const hasYoastFields = postData._yoast_wpseo_metadesc !== undefined;
+
+        if (!hasYoastFields) {
+            console.warn("[WARN] Yoast SEO fields not found in response. They may not be registered.");
+            console.warn("[WARN] See docs/wordpress-yoast-seo-setup.md for setup instructions.");
+        } else {
+            console.log("[META] ✓ SEO meta verified successfully");
+        }
     }
 }
 
@@ -441,23 +491,31 @@ async function processArticle(jsonFilePath: string): Promise<boolean> {
             return false;
         }
 
-        // Step 1: Upload featured image
-        console.log(`[UPLOAD] ${filename}: Uploading featured image...`);
-        const mediaResult = await uploadMedia(imagePath);
-        console.log(`[UPLOAD] ${filename}: Media ID ${mediaResult.id}`);
+        // --- NEW: Reuse Media ID Logic ---
+        let mediaId: number;
+        if (article.wp_media_id) {
+            console.log(`[UPLOAD] ${filename}: Reusing existing Media ID ${article.wp_media_id}`);
+            mediaId = article.wp_media_id;
+        } else {
+            // Step 1: Upload featured image
+            console.log(`[UPLOAD] ${filename}: Uploading featured image...`);
+            const mediaResult = await uploadMedia(imagePath);
+            mediaId = mediaResult.id;
+            console.log(`[UPLOAD] ${filename}: New Media ID ${mediaId}`);
+        }
 
         // Step 2: Create draft post
         console.log(`[CREATE] ${filename}: Creating draft post...`);
-        const postResult = await createDraftPost(article, mediaResult.id);
+        const postResult = await createDraftPost(article as Article, mediaId);
         console.log(`[SUCCESS] ${filename}: "${article.title}" → ${postResult.uri}`);
 
         // Step 3: Update JSON file
         article.pushed = true;
         article.wp_uri = postResult.uri;
-        article.wp_media_id = mediaResult.id;
+        article.wp_media_id = mediaId;
 
         fs.writeFileSync(jsonFilePath, JSON.stringify(article, null, 2), "utf-8");
-        console.log(`[UPDATE] ${filename}: Marked as pushed`);
+        console.log(`[UPDATE] Updated JSON with status and WP IDs`);
 
         return true;
     } catch (error) {
@@ -501,7 +559,7 @@ async function main(): Promise<void> {
 
     for (const file of files) {
         const filePath = path.join(ARTICLES_DIR, file);
-        
+
         try {
             const rawContent = fs.readFileSync(filePath, "utf-8");
             const article: Partial<Article> = JSON.parse(rawContent);
@@ -522,7 +580,7 @@ async function main(): Promise<void> {
             failCount++;
             const errorMessage = error instanceof Error ? error.message : String(error);
             console.error(`[ERROR] ${file}: Failed to parse JSON - ${errorMessage}`);
-            
+
             // If it's a JSON parse error, try to show more context
             if (errorMessage.includes("JSON") || errorMessage.includes("parse")) {
                 console.error(`[ERROR] ${file}: Please check the JSON syntax in this file`);
