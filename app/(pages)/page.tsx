@@ -27,7 +27,9 @@ export default function HomePage() {
         ctaLabel={siteConfig.hero.ctaLabel}
         ctaHref={mailto}
         eyebrow="PT Tiga Anak Propertindo"
+        size="large"
       />
+
 
       <SectionWithImage
         title="Komitmen inti kami"
