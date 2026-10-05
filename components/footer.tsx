@@ -58,6 +58,12 @@ export default function Footer() {
             >
               {siteConfig.contact.email}
             </a>
+            <a
+              href={`https://${siteConfig.contact.website}`}
+              className="font-semibold text-slate-900 transition-colors duration-200 hover:text-brand-primary"
+            >
+              {siteConfig.contact.website}
+            </a>
             {siteConfig.contact.whatsapp ? (
               <a
                 href={`https://wa.me/${siteConfig.contact.whatsapp}`}

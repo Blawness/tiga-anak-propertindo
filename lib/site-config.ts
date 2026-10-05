@@ -47,7 +47,8 @@ export const siteConfig = {
     { label: "Kontak", href: "/kontak" },
   ],
   contact: {
-    email: "tigaanakpropertindo@gmail.com",
+    email: "office@tigaanakpropertindo.com",
+    website: "tigaanakpropertindo.com",
     whatsapp: "",
   },
   hero: {
