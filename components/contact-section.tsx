@@ -31,6 +31,7 @@ export default function ContactSection({
             title="Saluran resmi"
             email={siteConfig.contact.email}
             whatsapp={siteConfig.contact.whatsapp}
+            address={siteConfig.contact.address}
             description={note}
           />
         </div>

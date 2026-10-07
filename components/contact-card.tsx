@@ -6,6 +6,7 @@ type ContactCardProps = {
   email: string;
   whatsapp?: string;
   description?: string;
+  address?: { line1: string; line2: string; city: string };
 };
 
 /** Editorial contact block: oversized email, hairline rows, quiet note. */
@@ -14,6 +15,7 @@ export default function ContactCard({
   email,
   whatsapp,
   description,
+  address,
 }: ContactCardProps) {
   const hasWhatsApp = Boolean(whatsapp && whatsapp.trim());
   const emailHref = `mailto:${email}`;
@@ -44,6 +46,20 @@ export default function ContactCard({
               >
                 {whatsapp}
               </a>
+            </dd>
+          </div>
+        ) : null}
+        {address ? (
+          <div className="flex flex-col gap-2 border-b border-line py-6">
+            <dt className="eyebrow text-stone">Kantor</dt>
+            <dd>
+              <address className="not-italic text-lead">
+                {address.line1}
+                <br />
+                {address.line2}
+                <br />
+                {address.city}
+              </address>
             </dd>
           </div>
         ) : null}

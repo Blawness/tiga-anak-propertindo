@@ -1,6 +1,8 @@
 import { buildMetadata } from "@/lib/meta";
 import { siteConfig } from "@/lib/site-config";
+import { cn } from "@/lib/utils";
 import PageHero from "@/components/page-hero";
+import Section from "@/components/section";
 import SectionWithImage from "@/components/section-with-image";
 import ContactSection from "@/components/contact-section";
 import { RevealGroup, RevealItem } from "@/components/motion";
@@ -10,9 +12,25 @@ export const metadata = buildMetadata({
   description: siteConfig.pages.legal.subtitle,
 });
 
-const DOCUMENTS = ["Akta Pendirian", "NPWP Perusahaan", "NIB & OSS", "Domisili Usaha"];
+function StatusDot({ done }: { done: boolean }) {
+  return (
+    <span aria-hidden className="relative flex h-1.5 w-1.5">
+      {done ? null : (
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-terracotta opacity-60 motion-reduce:animate-none" />
+      )}
+      <span
+        className={cn(
+          "relative inline-flex h-1.5 w-1.5 rounded-full",
+          done ? "bg-accent" : "bg-terracotta",
+        )}
+      />
+    </span>
+  );
+}
 
 export default function LegalitasPage() {
+  const { legal } = siteConfig;
+
   return (
     <>
       <PageHero
@@ -25,39 +43,74 @@ export default function LegalitasPage() {
 
       <SectionWithImage
         index="01"
-        eyebrow="Status legalitas"
-        title="Dalam proses finalisasi."
+        eyebrow="Dokumen perusahaan"
+        title="Terdaftar dan berizin."
         description={siteConfig.pages.legal.documentsNote}
         imageSrc={siteConfig.images.documents}
         imageAlt="Interior terang dengan dinding kaca"
         imagePosition="right"
       >
-        <div className="flex flex-col gap-4">
-          <p className="text-h3">{siteConfig.legal.status}</p>
-          <p className="max-w-[44ch] text-ink/65">{siteConfig.legal.statement}</p>
-        </div>
-
-        <RevealGroup as="ul" className="mt-12 border-t border-line">
-          {DOCUMENTS.map((label) => (
+        <RevealGroup as="ul" className="border-t border-line">
+          {legal.documents.map((doc) => (
             <RevealItem
               as="li"
-              key={label}
-              className="flex items-center justify-between gap-6 border-b border-line py-5"
+              key={doc.label}
+              className="flex flex-col gap-2 border-b border-line py-6"
             >
-              <span className="font-display text-2xl">{label}</span>
-              <span className="eyebrow flex items-center gap-2.5 text-accent">
-                <span aria-hidden className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-terracotta opacity-60 motion-reduce:animate-none" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-terracotta" />
+              <div className="flex items-center justify-between gap-6">
+                <span className="eyebrow text-stone">{doc.label}</span>
+                <span className="eyebrow flex items-center gap-2.5 text-accent">
+                  <StatusDot done />
+                  Terdaftar
                 </span>
-                Dalam proses
+              </div>
+              <span className="font-display text-[clamp(1.5rem,2.4vw,2rem)] leading-tight tabular-nums lining-nums">
+                {doc.value}
+              </span>
+              <span className="text-sm text-ink/65">{doc.detail}</span>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+        <p className="mt-8 max-w-[44ch] text-ink/65">{legal.statement}</p>
+      </SectionWithImage>
+
+      <Section
+        index="02"
+        eyebrow="Perizinan berusaha"
+        title="Bidang usaha (KBLI)"
+        description="Klasifikasi usaha yang tercantum dalam lampiran NIB."
+        tone="bone"
+      >
+        <RevealGroup as="ol" className="border-t border-line">
+          {legal.kbli.map((item) => (
+            <RevealItem
+              as="li"
+              key={item.code}
+              className="grid gap-4 border-b border-line py-8 md:grid-cols-12 md:items-baseline md:gap-8"
+            >
+              <span className="font-display text-[clamp(2rem,3.5vw,3rem)] font-light leading-none tabular-nums lining-nums text-accent md:col-span-2">
+                {item.code}
+              </span>
+              <div className="flex flex-col gap-1.5 md:col-span-6">
+                <h3 className="text-h3">{item.title}</h3>
+                <p className="text-ink/65">{item.scope}</p>
+              </div>
+              {/* Terracotta fails AA for small text on bone, so in-progress text uses warm brown */}
+              <span
+                className={cn(
+                  "eyebrow flex items-center gap-2.5 md:col-span-4 md:justify-self-end",
+                  item.done ? "text-accent" : "text-warm",
+                )}
+              >
+                <StatusDot done={item.done} />
+                {item.status}
               </span>
             </RevealItem>
           ))}
         </RevealGroup>
-      </SectionWithImage>
+      </Section>
 
-      <ContactSection index="02" />
+      <ContactSection index="03" />
     </>
   );
 }

@@ -55,6 +55,13 @@ export default function Footer() {
                 {siteConfig.contact.whatsapp}
               </a>
             ) : null}
+            <address className="mt-2 not-italic text-paper/70">
+              {siteConfig.contact.address.line1}
+              <br />
+              {siteConfig.contact.address.line2}
+              <br />
+              {siteConfig.contact.address.city}
+            </address>
           </div>
         </div>
       </div>

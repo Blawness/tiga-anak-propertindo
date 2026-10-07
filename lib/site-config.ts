@@ -52,6 +52,12 @@ export const siteConfig = {
     email: "office@tigaanakpropertindo.com",
     website: "tigaanakpropertindo.com",
     whatsapp: "",
+    // Registered domicile (NIB / NPWP)
+    address: {
+      line1: "Gedung Yarnati Lt. 4",
+      line2: "Jl. Proklamasi No. 44, Pegangsaan, Menteng",
+      city: "Jakarta Pusat, DKI Jakarta 10320",
+    },
   },
   hero: {
     title: "Membangun kepercayaan sejak perencanaan awal",
@@ -159,9 +165,49 @@ export const siteConfig = {
     ],
   },
   legal: {
-    status: "Legalitas dalam proses finalisasi; detail akan diperbarui secara berkala.",
+    status: "Dokumen legal inti perusahaan telah terbit dan tercatat pada instansi berwenang.",
     statement:
-      "Kami berkomitmen pada tata kelola yang patuh dan transparan. Informasi legalitas akan dipublikasikan setelah seluruh dokumen selesai.",
+      "Kami berkomitmen pada tata kelola yang patuh dan transparan. Pembaruan perizinan akan kami informasikan secara berkala.",
+    // Company-level facts only; the source PDFs (incl. the deed) are not published.
+    documents: [
+      {
+        label: "Akta Pendirian",
+        value: "No. 03 · 6 November 2025",
+        detail: "Notaris RA. Mahyasari A. Notonagoro, S.H., Jakarta",
+      },
+      {
+        label: "Nomor Induk Berusaha (NIB)",
+        value: "1301260048812",
+        detail: "Diterbitkan melalui OSS-RBA, 13 Januari 2026 · PMDN · Usaha Kecil",
+      },
+      {
+        label: "NPWP Perusahaan",
+        value: "Terdaftar",
+        detail: "KPP Pratama Jakarta Menteng Dua · 25 November 2025",
+      },
+      {
+        label: "Domisili Usaha",
+        value: "Jakarta Pusat",
+        detail: "Gedung Yarnati Lt. 4, Jl. Proklamasi No. 44, Pegangsaan, Menteng, Jakarta Pusat 10320",
+      },
+    ],
+    // Business classifications listed in the NIB annex
+    kbli: [
+      {
+        code: "68111",
+        title: "Real Estat yang Dimiliki Sendiri atau Disewa",
+        scope: "Pengembangan hunian dan/atau hunian campuran",
+        status: "Sertifikat standar terbit",
+        done: true,
+      },
+      {
+        code: "52215",
+        title: "Aktivitas Perparkiran di Luar Badan Jalan",
+        scope: "Off street parking",
+        status: "Sertifikat standar dalam verifikasi",
+        done: false,
+      },
+    ],
   },
   about: {
     overview: [
@@ -260,7 +306,7 @@ export const siteConfig = {
       subtitle:
         "Kami memprioritaskan kepatuhan dan transparansi. Informasi legalitas akan diperbarui secara berkala.",
       documentsNote:
-        "Detail dokumen akan dipublikasikan setelah seluruh proses registrasi selesai dan tervalidasi.",
+        "PT Tiga Anak Propertindo berdiri berdasarkan akta notaris dan terdaftar pada sistem perizinan berusaha nasional (OSS). NIB dapat diverifikasi melalui oss.go.id.",
     },
     contact: {
       title: "Kontak",
