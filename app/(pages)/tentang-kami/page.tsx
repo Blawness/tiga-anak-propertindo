@@ -4,6 +4,7 @@ import PageHero from "@/components/page-hero";
 import Section from "@/components/section";
 import SectionWithImage from "@/components/section-with-image";
 import ContactSection from "@/components/contact-section";
+import OrgStructure from "@/components/org-structure";
 import { RevealGroup, RevealItem, ScrollText } from "@/components/motion";
 
 export const metadata = buildMetadata({
@@ -75,8 +76,18 @@ export default function AboutPage() {
         </RevealGroup>
       </Section>
 
-      <ContactSection
+      <Section
+        id="struktur"
         index="03"
+        eyebrow="Organisasi"
+        title="Struktur perusahaan"
+        description="Garis pelaporan yang jelas agar setiap fungsi memiliki penanggung jawab dan akuntabilitas yang tegas."
+      >
+        <OrgStructure />
+      </Section>
+
+      <ContactSection
+        index="04"
         title="Kami terbuka untuk diskusi awal dan penjajakan kemitraan."
         note="Silakan jadwalkan percakapan; kami merespons secara terstruktur."
       />

@@ -192,6 +192,39 @@ export const siteConfig = {
     currentFocus:
       "Fokus kami saat ini adalah mematangkan kerangka tata kelola, menyusun pipeline kemitraan, dan menyiapkan dokumentasi dasar sebelum eksekusi proyek.",
   },
+  // Every unit has one koordinator; `staff` is the number of staff divisi.
+  organization: {
+    leaders: {
+      ceo: { title: "Direktur Utama", name: "Adam Maulana Hafiz, S.H." },
+      coo: { title: "Direktur Operasional", name: "Annisa Novianty, S.H., M.H." },
+    },
+    divisions: [
+      {
+        name: "Finance",
+        reportsTo: "coo",
+        units: [
+          { name: "Accounting", staff: 1 },
+          { name: "Investment", staff: 1 },
+        ],
+      },
+      {
+        name: "Business Development",
+        reportsTo: "coo",
+        units: [
+          { name: "Marketing Communication", staff: 2 },
+          { name: "Project Officer", staff: 1 },
+        ],
+      },
+      {
+        name: "Human Capital",
+        reportsTo: "ceo",
+        units: [
+          { name: "HR & GA", staff: 1 },
+          { name: "Legal Officer", staff: 1 },
+        ],
+      },
+    ],
+  },
   pages: {
     services: {
       title: "Layanan",
