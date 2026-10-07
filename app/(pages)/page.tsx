@@ -1,12 +1,11 @@
 import { buildMetadata } from "@/lib/meta";
 import ContactCard from "@/components/contact-card";
 import PageHero from "@/components/page-hero";
-import Section from "@/components/section";
 import SectionWithImage from "@/components/section-with-image";
 import CommitmentSection from "@/components/home/commitment-section";
 import ServicesGallery from "@/components/home/services-gallery";
 import CTAButton from "@/components/cta-button";
-import RoadmapTimeline from "@/components/roadmap-timeline";
+import RoadmapSection from "@/components/home/roadmap-section";
 import { siteConfig } from "@/lib/site-config";
 import { FadeIn } from "@/components/motion";
 import Image from "next/image";
@@ -36,12 +35,7 @@ export default function HomePage() {
 
       <ServicesGallery />
 
-      <Section
-        title={siteConfig.roadmap.title}
-        description={siteConfig.roadmap.subtitle}
-      >
-        <RoadmapTimeline />
-      </Section>
+      <RoadmapSection />
 
       <section className="py-12 md:py-16">
         <div className="section-shell">
