@@ -1,7 +1,5 @@
 import CTAButton from "./cta-button";
-import { FadeIn } from "./motion";
-import { Card, CardContent, CardHeader } from "./ui/card";
-import { Badge } from "./ui/badge";
+import { Reveal } from "./motion";
 
 type ContactCardProps = {
   title?: string;
@@ -10,6 +8,7 @@ type ContactCardProps = {
   description?: string;
 };
 
+/** Editorial contact block: oversized email, hairline rows, quiet note. */
 export default function ContactCard({
   title = "Kontak",
   email,
@@ -21,50 +20,43 @@ export default function ContactCard({
   const whatsappHref = hasWhatsApp ? `https://wa.me/${whatsapp}` : "";
 
   return (
-    <FadeIn>
-      <Card className="border-slate-200">
-        <CardHeader className="pb-4">
-          <Badge className="w-fit uppercase tracking-[0.14em]">{title}</Badge>
-          {description ? (
-            <p className="text-sm text-slate-600">{description}</p>
-          ) : null}
-        </CardHeader>
-        <CardContent className="flex flex-col gap-4 pt-0">
-          <div>
-            <p className="text-xs uppercase tracking-[0.12em] text-slate-500">
-              Email
-            </p>
+    <Reveal className="flex flex-col">
+      <p className="eyebrow text-stone">{title}</p>
+      <dl className="mt-6 border-t border-line">
+        <div className="flex flex-col gap-2 border-b border-line py-6">
+          <dt className="eyebrow text-stone">Email</dt>
+          <dd>
             <a
               href={emailHref}
-              className="text-base font-semibold text-slate-900 transition-colors duration-200 hover:text-brand-primary"
+              className="link-underline font-display text-[clamp(1.5rem,3vw,2.5rem)] font-light leading-tight break-all transition-colors duration-500 ease-luxe hover:text-accent"
             >
               {email}
             </a>
-          </div>
-          {hasWhatsApp ? (
-            <div>
-              <p className="text-xs uppercase tracking-[0.12em] text-slate-500">
-                WhatsApp
-              </p>
+          </dd>
+        </div>
+        {hasWhatsApp ? (
+          <div className="flex flex-col gap-2 border-b border-line py-6">
+            <dt className="eyebrow text-stone">WhatsApp</dt>
+            <dd>
               <a
                 href={whatsappHref}
-                className="text-base font-semibold text-slate-900 transition-colors duration-200 hover:text-brand-primary"
+                className="link-underline font-display text-[clamp(1.5rem,3vw,2.5rem)] font-light leading-tight transition-colors duration-500 ease-luxe hover:text-accent"
               >
                 {whatsapp}
               </a>
-            </div>
-          ) : null}
-          <div className="flex flex-wrap gap-3 pt-2">
-            <CTAButton href={emailHref}>Email Kami</CTAButton>
-            {hasWhatsApp ? (
-              <CTAButton href={whatsappHref} variant="outline">
-                WhatsApp
-              </CTAButton>
-            ) : null}
+            </dd>
           </div>
-        </CardContent>
-      </Card>
-    </FadeIn>
+        ) : null}
+      </dl>
+      {description ? <p className="mt-6 max-w-[44ch] text-ink/65">{description}</p> : null}
+      <div className="mt-8 flex flex-wrap gap-3">
+        <CTAButton href={emailHref}>Email kami</CTAButton>
+        {hasWhatsApp ? (
+          <CTAButton href={whatsappHref} variant="outline">
+            WhatsApp
+          </CTAButton>
+        ) : null}
+      </div>
+    </Reveal>
   );
 }
-
