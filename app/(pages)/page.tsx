@@ -4,6 +4,7 @@ import PageHero from "@/components/page-hero";
 import Section from "@/components/section";
 import SectionWithImage from "@/components/section-with-image";
 import CommitmentSection from "@/components/home/commitment-section";
+import ServicesGallery from "@/components/home/services-gallery";
 import CTAButton from "@/components/cta-button";
 import RoadmapTimeline from "@/components/roadmap-timeline";
 import { siteConfig } from "@/lib/site-config";
@@ -33,61 +34,7 @@ export default function HomePage() {
 
       <CommitmentSection />
 
-      <Section
-        title="Layanan utama"
-        description="Layanan prioritas untuk menyiapkan proyek yang tertata, patuh regulasi, dan siap dieksekusi."
-      >
-        <div className="grid gap-6 md:grid-cols-2">
-          {siteConfig.coreServices.map((service, index) => {
-            const images = [
-              siteConfig.images.property,
-              siteConfig.images.legal,
-              siteConfig.images.handshake,
-              siteConfig.images.collaboration,
-            ];
-
-            return (
-              <FadeIn key={service.title} delay={0.05 * index} className="h-full">
-                <Card className="group flex h-full flex-col overflow-hidden border-slate-200">
-                  <div className="relative h-44 overflow-hidden">
-                    <Image
-                      src={images[index]}
-                      alt={service.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/45 via-slate-900/10 to-transparent" />
-                    <div className="absolute left-4 top-4 flex items-center gap-2">
-                      <Badge className="bg-white/90 text-brand-primary ring-0">
-                        Layanan {String(index + 1).padStart(2, "0")}
-                      </Badge>
-                      <Badge variant="outline">Unggulan</Badge>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-1 flex-col gap-3 p-6">
-                    <h3 className="text-xl font-semibold text-slate-900">
-                      {service.title}
-                    </h3>
-                    <p className="text-base text-slate-600 line-clamp-3">
-                      {service.shortDescription}
-                    </p>
-                    <div className="mt-auto pt-2">
-                      <CTAButton
-                        href={`/layanan/${service.slug}`}
-                        className="w-full justify-center text-sm"
-                      >
-                        Selengkapnya
-                      </CTAButton>
-                    </div>
-                  </div>
-                </Card>
-              </FadeIn>
-            );
-          })}
-        </div>
-      </Section>
+      <ServicesGallery />
 
       <Section
         title={siteConfig.roadmap.title}
