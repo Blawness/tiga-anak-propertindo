@@ -107,7 +107,7 @@ export default async function ArtikelDetailPage({ params }: PageProps) {
                         className="mt-10 max-w-[22ch] text-h1"
                     />
 
-                    <p className="eyebrow mt-10 flex flex-wrap items-center gap-3 text-bronze">
+                    <p className="eyebrow mt-10 flex flex-wrap items-center gap-3 text-sand">
                         <time dateTime={post.date}>{formatDate(post.date)}</time>
                         {post.author?.node?.name ? (
                             <>

@@ -13,7 +13,7 @@ export default function Footer() {
         <Reveal className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <p className="max-w-3xl text-h2">
             {siteConfig.tagline}
-            <span className="text-bronze">.</span>
+            <span className="text-sand">.</span>
           </p>
           <CTAButton href={mailto} variant="light" size="lg" className="self-start md:self-auto">
             Mulai percakapan
@@ -61,7 +61,7 @@ export default function Footer() {
 
       <div className="section-shell mt-24 select-none" aria-hidden>
         <p className="whitespace-nowrap font-display text-[min(9.4vw,8.4rem)] font-light leading-[0.8] tracking-[-0.03em] text-paper/90">
-          Tiga Anak <span className="italic text-bronze">Propertindo</span>
+          Tiga Anak <span className="italic text-sand">Propertindo</span>
         </p>
       </div>
 

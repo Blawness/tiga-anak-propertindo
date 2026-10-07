@@ -28,9 +28,9 @@ export const siteConfig = {
     professional: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2400&q=80",
   },
   brand: {
-    primary: "#6F3715",
-    accent: "#B1846A",
-    background: "#FAFAFA",
+    primary: "#5C3A20",
+    accent: "#C89957",
+    background: "#F9F9F9",
   },
   navigation: [
     { label: "Home", href: "/" },

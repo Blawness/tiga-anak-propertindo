@@ -42,7 +42,7 @@ export default function ServicesGallery() {
                 />
 
                 <Reveal className="flex flex-col gap-6" y={24}>
-                  <p className="eyebrow text-bronze">
+                  <p className="eyebrow text-sand">
                     {String(index + 1).padStart(2, "0")} / {total}
                   </p>
                   <h3 className="text-h2">{service.title}</h3>

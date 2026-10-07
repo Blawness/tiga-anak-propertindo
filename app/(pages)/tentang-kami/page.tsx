@@ -45,7 +45,7 @@ export default function AboutPage() {
 
       <section className="section-y bg-ink text-paper">
         <div className="section-shell">
-          <p className="eyebrow mb-10 text-bronze">Fokus saat ini</p>
+          <p className="eyebrow mb-10 text-sand">Fokus saat ini</p>
           <ScrollText
             text={siteConfig.about.currentFocus}
             className="max-w-[24ch] font-display text-[clamp(2rem,4.8vw,4.75rem)] font-light leading-[1.06] tracking-[-0.02em]"

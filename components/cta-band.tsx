@@ -40,7 +40,7 @@ export default function CtaBand({
           <div className="section-shell flex flex-col items-center gap-8 text-center">
             {eyebrow ? (
               <Reveal y={12}>
-                <p className="eyebrow flex items-center gap-4 text-bronze">
+                <p className="eyebrow flex items-center gap-4 text-sand">
                   <span aria-hidden className="h-px w-10 bg-current" />
                   {eyebrow}
                   <span aria-hidden className="h-px w-10 bg-current" />

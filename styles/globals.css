@@ -4,15 +4,21 @@
    Design tokens
    ------------------------------------------------------------------ */
 @theme {
-  --color-ink: #141210;
-  --color-ink-soft: #2a2622;
-  --color-paper: #f4f0ea;
-  --color-bone: #e9e3da;
-  --color-stone: #6a645d;
-  --color-accent: #6f3715;
-  --color-bronze: #b1846a;
-  --color-line: rgb(20 18 16 / 0.12);
-  --color-line-light: rgb(244 240 234 / 0.18);
+  /* TRIHUNI brand palette (04 Marketing/brand guideline). Swatch values were
+     sampled from the artwork: the hex labels in that PDF are template leftovers. */
+  --color-ink: #1b1b1b; /* Black */
+  --color-paper: #f9f9f9; /* White */
+  --color-accent: #5c3a20; /* Deep Brown */
+  --color-warm: #8b592a; /* Warm Brown */
+  --color-sand: #c89957; /* Sand Gold */
+  --color-terracotta: #b4651c; /* Terracotta */
+
+  /* Derived: sand-gold tint for alternating sections, AA-safe muted text */
+  --color-bone: #f2eadf;
+  --color-stone: #6e6156;
+  --color-ink-soft: #2e2924;
+  --color-line: rgb(27 27 27 / 0.12);
+  --color-line-light: rgb(249 249 249 / 0.18);
 
   --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -112,7 +118,7 @@
   }
 
   ::selection {
-    background-color: var(--color-accent);
+    background-color: var(--color-terracotta);
     color: var(--color-paper);
   }
 
@@ -241,7 +247,7 @@
   }
 
   .article-content li::marker {
-    color: var(--color-bronze);
+    color: var(--color-sand);
   }
 
   .article-content blockquote {

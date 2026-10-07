@@ -47,7 +47,7 @@ export default function LayananPage() {
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <div className="flex flex-col gap-4 md:col-span-6">
-                    <h3 className="text-h2 transition-colors duration-700 ease-luxe group-hover:text-accent">
+                    <h3 className="text-h2 transition-colors duration-700 ease-luxe group-hover:text-terracotta">
                       {service.title}
                     </h3>
                     <p className="max-w-[44ch] text-ink/65">{service.shortDescription}</p>

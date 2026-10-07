@@ -209,7 +209,7 @@ export default function Header() {
                   className={cn(
                     "flex items-baseline gap-4 py-1 font-display text-[clamp(2.25rem,9vw,3.5rem)] font-light leading-tight transition-transform duration-1000 ease-luxe",
                     isMenuOpen ? "translate-y-0" : "translate-y-full",
-                    isActive(item.href) && "italic text-bronze",
+                    isActive(item.href) && "italic text-sand",
                   )}
                   style={{ transitionDelay: isMenuOpen ? `${120 + index * 60}ms` : "0ms" }}
                 >

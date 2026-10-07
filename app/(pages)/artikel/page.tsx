@@ -74,7 +74,7 @@ function FeaturedPost({ post }: { post: WPPost }) {
         />
         <div className="flex flex-col gap-6 md:col-span-5">
           <PostMeta post={post} />
-          <h2 className="text-h2 transition-colors duration-700 ease-luxe group-hover:text-accent">
+          <h2 className="text-h2 transition-colors duration-700 ease-luxe group-hover:text-terracotta">
             {post.title}
           </h2>
           {excerpt ? <p className="text-ink/65">{excerpt}</p> : null}
@@ -104,7 +104,7 @@ function PostCard({ post }: { post: WPPost }) {
       />
       <div className="flex flex-col gap-3">
         <PostMeta post={post} />
-        <h3 className="text-h3 transition-colors duration-700 ease-luxe group-hover:text-accent">
+        <h3 className="text-h3 transition-colors duration-700 ease-luxe group-hover:text-terracotta">
           {post.title}
         </h3>
         {excerpt ? <p className="line-clamp-2 text-ink/65">{excerpt}</p> : null}
