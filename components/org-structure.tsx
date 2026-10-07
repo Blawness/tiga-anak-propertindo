@@ -38,20 +38,13 @@ function LeaderCard({
 }
 
 function DivisionCard({ division, index }: { division: Division; index: number }) {
-  const reportsTo = leaders[division.reportsTo as keyof typeof leaders];
-
   return (
     <article
       data-tree-id={`division-${index}`}
       data-tree-parent={division.reportsTo}
       className="flex h-full flex-col border border-line bg-paper"
     >
-      <header className="flex flex-col gap-3 border-b border-line p-7 md:p-8">
-        <p className="eyebrow flex flex-wrap items-center gap-3 text-stone">
-          <span className="text-accent">Divisi {String(index + 1).padStart(2, "0")}</span>
-          <span aria-hidden className="h-px w-4 bg-current" />
-          <span>Melapor ke {reportsTo.title}</span>
-        </p>
+      <header className="border-b border-line p-7 md:p-8">
         <h3 className="text-h3">{division.name}</h3>
       </header>
 
@@ -79,7 +72,7 @@ function DivisionCard({ division, index }: { division: Division; index: number }
 /**
  * Company organisation chart. On desktop the reporting lines are one SVG
  * overlay with rounded elbows that draws itself on scroll; on smaller screens
- * the cards stack and each division states who it reports to.
+ * the cards simply stack in reporting order.
  */
 export default function OrgStructure() {
   // Operational divisions sit under Direktur Operasional (columns 1-2),
