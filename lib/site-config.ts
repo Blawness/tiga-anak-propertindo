@@ -4,27 +4,28 @@ export const siteConfig = {
   description:
     "Perusahaan properti baru yang berfokus pada fondasi tata kelola, kemitraan yang transparan, dan persiapan proyek yang solid.",
   images: {
-    // Modern architecture & property
-    hero: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80",
-    property: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
-    building: "https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=800&q=80",
+    // Curated: warm, architectural, editorial
+    hero: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=80",
+    land: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=2400&q=80",
+    property: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2400&q=80",
+    building: "https://images.unsplash.com/photo-1486718448742-163732cd1544?auto=format&fit=crop&w=2400&q=80",
     // Business & partnership
-    collaboration: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80",
-    meeting: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
-    handshake: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=80",
+    collaboration: "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=2400&q=80",
+    meeting: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=2400&q=80",
+    handshake: "https://images.unsplash.com/photo-1431576901776-e539bd916ba2?auto=format&fit=crop&w=2400&q=80",
     // Planning & construction
-    planning: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
-    construction: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
-    blueprint: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
+    planning: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=2400&q=80",
+    construction: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=2400&q=80",
+    blueprint: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=80",
     // Legal & documents
-    legal: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80",
-    documents: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+    legal: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=2400&q=80",
+    documents: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=2400&q=80",
     // Office & communication
-    office: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
-    communication: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=800&q=80",
+    office: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=2400&q=80",
+    communication: "https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=2400&q=80",
     // Team & people
-    team: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80",
-    professional: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80",
+    team: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=80",
+    professional: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2400&q=80",
   },
   brand: {
     primary: "#6F3715",

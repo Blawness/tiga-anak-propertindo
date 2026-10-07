@@ -5,26 +5,26 @@ type BadgeProps = React.HTMLAttributes<HTMLSpanElement> & {
   variant?: "default" | "outline";
 };
 
-export function Badge({
-  className,
-  variant = "default",
-  ...props
-}: BadgeProps) {
-  const styles =
-    variant === "outline"
-      ? "border border-slate-200 text-slate-800 bg-white"
-      : "bg-brand-primary/10 text-brand-primary border border-brand-primary/20";
+/** Editorial eyebrow label: small caps with a leading hairline. */
+export function Badge({ className, variant = "default", children, ...props }: BadgeProps) {
+  if (variant === "outline") {
+    return (
+      <span
+        className={cn("eyebrow inline-flex items-center border border-current/30 px-3 py-1.5", className)}
+        {...props}
+      >
+        {children}
+      </span>
+    );
+  }
 
   return (
     <span
-      className={cn(
-        "inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em]",
-        styles,
-        className,
-      )}
+      className={cn("eyebrow inline-flex items-center gap-3 text-accent", className)}
       {...props}
-    />
+    >
+      <span aria-hidden className="h-px w-6 bg-current" />
+      {children}
+    </span>
   );
 }
-
-

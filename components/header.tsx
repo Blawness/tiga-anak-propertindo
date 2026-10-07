@@ -14,9 +14,11 @@ export default function Header() {
   const pathname = usePathname();
   const mailto = `mailto:${siteConfig.contact.email}`;
 
-  useEffect(() => {
+  const [menuPath, setMenuPath] = useState(pathname);
+  if (menuPath !== pathname) {
+    setMenuPath(pathname);
     setIsMenuOpen(false);
-  }, [pathname]);
+  }
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "unset";

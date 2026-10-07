@@ -1,7 +1,7 @@
 "use client";
 
 import { siteConfig } from "@/lib/site-config";
-import { FadeIn, GrowY } from "@/components/motion";
+import { FadeIn } from "@/components/motion";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -50,7 +50,7 @@ export default function RoadmapTimeline() {
                         {phase.detail}
                       </p>
                     </Card>
-                    <GrowY className="mb-3 h-10 w-px bg-gradient-to-b from-brand-primary/60 via-brand-primary/30 to-transparent md:h-12" />
+                    <div className="mb-3 h-10 w-px bg-gradient-to-b from-brand-primary/60 via-brand-primary/30 to-transparent md:h-12" />
                   </>
                 )}
 
@@ -61,7 +61,7 @@ export default function RoadmapTimeline() {
 
                 {!isEven && (
                   <>
-                    <GrowY className="mt-3 h-10 w-px bg-gradient-to-b from-brand-primary/60 via-brand-primary/30 to-transparent md:h-12" />
+                    <div className="mt-3 h-10 w-px bg-gradient-to-b from-brand-primary/60 via-brand-primary/30 to-transparent md:h-12" />
                     <Card className="z-[1] mt-4 flex flex-col gap-2 border-slate-200/80 bg-white/90 px-4 py-3 text-center text-sm md:gap-3 md:text-base">
                       <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-wide md:text-xs">
                         <Badge className="bg-brand-primary/10 text-brand-primary ring-0">

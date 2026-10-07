@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { DM_Sans, League_Spartan } from "next/font/google";
+import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { MotionProvider } from "@/components/motion";
 import { buildMetadata } from "../lib/meta";
 import "../styles/globals.css";
 
-const headingFont = League_Spartan({
+const displayFont = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-heading",
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
   display: "swap",
 });
 
-const bodyFont = DM_Sans({
+const bodyFont = Manrope({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-body",
+  variable: "--font-manrope",
   display: "swap",
 });
 
@@ -26,11 +27,11 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="id" className={`${headingFont.variable} ${bodyFont.variable}`}>
-      <body className="bg-slate-50 text-slate-700 antialiased">
-        {children}
+    <html lang="id" className={`${displayFont.variable} ${bodyFont.variable}`}>
+      <body className="bg-paper text-ink antialiased">
+        <MotionProvider>{children}</MotionProvider>
+        <div className="grain" aria-hidden />
       </body>
     </html>
   );
 }
-

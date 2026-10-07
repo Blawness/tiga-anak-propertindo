@@ -1,58 +1,198 @@
 @import "tailwindcss";
 
-:root {
-  color-scheme: light;
-  background-color: #f8fafc;
+/* ------------------------------------------------------------------
+   Design tokens
+   ------------------------------------------------------------------ */
+@theme {
+  --color-ink: #141210;
+  --color-ink-soft: #2a2622;
+  --color-paper: #f4f0ea;
+  --color-bone: #e9e3da;
+  --color-stone: #8a847c;
+  --color-accent: #6f3715;
+  --color-bronze: #b1846a;
+  --color-line: rgb(20 18 16 / 0.12);
+  --color-line-light: rgb(244 240 234 / 0.18);
+
+  /* Legacy brand tokens kept until every page is migrated */
+  --color-brand-primary: #6f3715;
+  --color-brand-hover: #b1846a;
+  --color-brand-neutral: #737373;
+  --color-brand-black: #191919;
+  --color-brand-paper: #fafafa;
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --breakpoint-3xl: 112rem;
 }
 
-* {
-  box-sizing: border-box;
+@theme inline {
+  --font-display: var(--font-cormorant), "Times New Roman", serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-cormorant), "Times New Roman", serif;
+  --font-body: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
 
-body {
-  margin: 0;
-  background-color: #f8fafc;
-  color: #475569;
-  font-family: var(--font-body), ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
-  line-height: 1.7;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
+/* ------------------------------------------------------------------
+   Type scale
+   ------------------------------------------------------------------ */
+@utility text-display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3rem, 8.4vw, 8.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-heading), ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #0f172a;
+@utility text-h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.75rem, 6vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@utility text-h2 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.25rem, 4.6vw, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.018em;
 }
 
-/* Navbar link colors handled by Tailwind utilities */
-
-:focus-visible {
-  outline: 2px solid #6f3715;
-  outline-offset: 3px;
+@utility text-h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.625rem, 2.3vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
+@utility text-lead {
+  font-size: clamp(1.0625rem, 1.35vw, 1.3125rem);
+  line-height: 1.65;
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    color-scheme: light;
+    background-color: var(--color-paper);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: inherit;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Components
+   ------------------------------------------------------------------ */
 @layer components {
   .section-shell {
-    @apply mx-auto w-full max-w-6xl px-6 sm:px-8;
+    margin-inline: auto;
+    width: 100%;
+    max-width: 90rem;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
   }
 
-  .surface {
-    @apply rounded-3xl border border-slate-200 bg-white/90 shadow-sm backdrop-blur-sm;
+  .section-y {
+    padding-block: clamp(5rem, 12vw, 11rem);
   }
 
-  /* WordPress article content styling */
+  .hairline {
+    height: 1px;
+    width: 100%;
+    background-color: var(--color-line);
+  }
+
+  /* Underline that grows from the left on hover */
+  .link-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.15em;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.6s var(--ease-luxe);
+  }
+
+  .link-underline:hover::after,
+  .link-underline[aria-current="page"]::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Text mask used by SplitText */
+  .mask-line {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  /* WordPress article content */
   .article-content {
-    @apply text-slate-700 leading-relaxed;
+    color: var(--color-ink-soft);
+    font-size: 1.125rem;
+    line-height: 1.85;
   }
 
   .article-content h1,
@@ -61,94 +201,168 @@ a {
   .article-content h4,
   .article-content h5,
   .article-content h6 {
-    @apply font-semibold text-slate-900 mt-8 mb-4;
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: var(--color-ink);
+    line-height: 1.15;
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
   }
 
-  .article-content h1 {
-    @apply text-3xl;
-  }
-
+  .article-content h1,
   .article-content h2 {
-    @apply text-3xl;
+    font-size: clamp(1.875rem, 3vw, 2.5rem);
   }
 
   .article-content h3 {
-    @apply text-xl;
+    font-size: clamp(1.5rem, 2.2vw, 1.875rem);
   }
 
   .article-content h4 {
-    @apply text-lg;
+    font-size: 1.375rem;
   }
 
   .article-content p {
-    @apply mb-4;
+    margin-bottom: 1.5rem;
   }
 
   .article-content a {
-    @apply hover:underline;
-    color: #6F3715;
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
   }
 
   .article-content ul,
   .article-content ol {
-    @apply mb-4 pl-6;
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
   }
 
   .article-content ul {
-    @apply list-disc;
+    list-style: disc;
   }
 
   .article-content ol {
-    @apply list-decimal;
+    list-style: decimal;
   }
 
   .article-content li {
-    @apply mb-2;
+    margin-bottom: 0.5rem;
+  }
+
+  .article-content li::marker {
+    color: var(--color-bronze);
   }
 
   .article-content blockquote {
-    @apply border-l-4 pl-4 italic text-slate-600 my-6;
-    border-color: #6F3715;
+    margin-block: 2.5rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-accent);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    color: var(--color-ink);
   }
 
   .article-content img {
-    @apply rounded-xl shadow-md my-6 max-w-full h-auto;
+    margin-block: 2rem;
+    max-width: 100%;
+    height: auto;
   }
 
   .article-content pre {
-    @apply bg-slate-100 rounded-lg p-4 overflow-x-auto my-4 text-sm;
+    margin-block: 1.5rem;
+    overflow-x: auto;
+    padding: 1rem;
+    background-color: var(--color-bone);
+    font-size: 0.875rem;
   }
 
   .article-content code {
-    @apply bg-slate-100 px-1.5 py-0.5 rounded text-sm;
+    background-color: var(--color-bone);
+    padding: 0.1rem 0.35rem;
+    font-size: 0.875em;
   }
 
   .article-content pre code {
-    @apply bg-transparent p-0;
+    background: transparent;
+    padding: 0;
   }
 
   .article-content hr {
-    @apply border-slate-200 my-8;
+    margin-block: 3rem;
+    border: 0;
+    border-top: 1px solid var(--color-line);
   }
 
   .article-content table {
-    @apply w-full border-collapse my-6;
+    width: 100%;
+    margin-block: 2rem;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
   }
 
   .article-content th,
   .article-content td {
-    @apply border border-slate-200 px-4 py-2 text-left;
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.75rem 1rem 0.75rem 0;
+    text-align: left;
   }
 
   .article-content th {
-    @apply bg-slate-50 font-semibold;
+    font-weight: 600;
   }
 
   .article-content figure {
-    @apply my-6;
+    margin-block: 2rem;
   }
 
   .article-content figcaption {
-    @apply text-center text-sm text-slate-500 mt-2;
+    margin-top: 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--color-stone);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Film grain overlay (static, never animated)
+   ------------------------------------------------------------------ */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------------
+   Route transition (CSS only, so content paints without waiting for JS)
+   ------------------------------------------------------------------ */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.page-in {
+  animation: page-in 0.9s var(--ease-luxe) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-in {
+    animation-name: none;
+  }
+
+  .link-underline::after {
+    transition: none;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }

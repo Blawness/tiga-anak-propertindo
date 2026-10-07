@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "secondary" | "ghost" | "outline";
+type Variant = "primary" | "secondary" | "ghost" | "outline" | "light";
 type Size = "sm" | "md" | "lg";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -10,24 +10,21 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const variantClasses: Record<Variant, string> = {
-  primary:
-    "bg-[#6F3715] !text-white shadow-sm hover:bg-[#B1846A] hover:shadow-md focus-visible:ring-2 focus-visible:ring-brand-primary/40 active:scale-[0.98]",
-  secondary:
-    "bg-slate-900 !text-white border border-slate-700 shadow-sm hover:border-brand-primary/40 hover:bg-slate-800 hover:shadow-md focus-visible:ring-2 focus-visible:ring-brand-primary/30 active:scale-[0.98]",
-  ghost:
-    "text-slate-900 hover:bg-slate-100 hover:text-brand-primary focus-visible:ring-2 focus-visible:ring-brand-primary/30 active:scale-[0.98]",
-  outline:
-    "border border-slate-200 text-slate-900 hover:border-brand-primary/40 hover:bg-slate-50 hover:text-brand-primary hover:shadow-sm focus-visible:ring-2 focus-visible:ring-brand-primary/30 active:scale-[0.98]",
+  primary: "bg-accent text-paper hover:bg-ink",
+  secondary: "bg-ink text-paper hover:bg-accent",
+  ghost: "text-ink hover:text-accent",
+  outline: "border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-paper",
+  light: "border border-paper/35 text-paper hover:border-paper hover:bg-paper hover:text-ink",
 };
 
 const sizeClasses: Record<Size, string> = {
-  sm: "h-9 px-3 text-sm",
-  md: "h-10 px-4 text-sm",
-  lg: "h-11 px-5 text-base",
+  sm: "h-10 px-5",
+  md: "h-12 px-7",
+  lg: "h-14 px-9",
 };
 
 export const buttonBase =
-  "inline-flex items-center justify-center whitespace-nowrap rounded-lg font-semibold transition-all duration-200 ease-in-out focus-visible:outline-none disabled:pointer-events-none disabled:opacity-60";
+  "group/btn inline-flex items-center justify-center gap-3 whitespace-nowrap text-[0.6875rem] font-semibold uppercase tracking-[0.22em] transition-colors duration-500 ease-luxe focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-paper disabled:pointer-events-none disabled:opacity-60";
 
 export function buttonVariants({
   variant = "primary",
@@ -54,5 +51,3 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.displayName = "Button";
-
-

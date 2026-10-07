@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const base =
-  "rounded-2xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md";
+  "border border-line bg-paper transition-colors duration-500 ease-luxe";
 
 export const Card = React.forwardRef<
   HTMLDivElement,
@@ -26,7 +26,7 @@ export const CardTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-lg font-semibold leading-tight text-slate-900", className)}
+    className={cn("font-display text-2xl leading-tight text-ink", className)}
     {...props}
   />
 ));
@@ -36,7 +36,7 @@ export const CardDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn("text-sm text-slate-600", className)} {...props} />
+  <p ref={ref} className={cn("text-sm text-stone", className)} {...props} />
 ));
 CardDescription.displayName = "CardDescription";
 
