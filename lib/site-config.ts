@@ -39,6 +39,7 @@ export const siteConfig = {
       href: "/tentang-kami",
       children: [
         { label: "Tentang Kami", href: "/tentang-kami" },
+        { label: "Struktur Organisasi", href: "/struktur-organisasi" },
         { label: "Proyek", href: "/proyek" },
         { label: "Legalitas", href: "/legalitas" },
       ],

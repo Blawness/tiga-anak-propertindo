@@ -4,7 +4,7 @@ import PageHero from "@/components/page-hero";
 import Section from "@/components/section";
 import SectionWithImage from "@/components/section-with-image";
 import ContactSection from "@/components/contact-section";
-import OrgStructure from "@/components/org-structure";
+import Link from "next/link";
 import { RevealGroup, RevealItem, ScrollText } from "@/components/motion";
 
 export const metadata = buildMetadata({
@@ -76,18 +76,33 @@ export default function AboutPage() {
         </RevealGroup>
       </Section>
 
-      <Section
-        id="struktur"
-        index="03"
-        eyebrow="Organisasi"
-        title="Struktur perusahaan"
-        description="Garis pelaporan yang jelas agar setiap fungsi memiliki penanggung jawab dan akuntabilitas yang tegas."
-      >
-        <OrgStructure />
-      </Section>
+      <section className="bg-paper">
+        <div className="section-shell">
+          <Link
+            href="/struktur-organisasi"
+            className="group flex flex-col gap-4 border-b border-line py-12 md:flex-row md:items-center md:justify-between md:py-16"
+          >
+            <span className="flex flex-col gap-3">
+              <span className="eyebrow text-accent">Organisasi</span>
+              <span className="text-h2 transition-colors duration-700 ease-luxe group-hover:text-terracotta">
+                Struktur organisasi
+              </span>
+            </span>
+            <span className="eyebrow inline-flex items-center gap-3">
+              <span className="link-underline">Lihat struktur</span>
+              <span
+                aria-hidden
+                className="transition-transform duration-500 ease-luxe group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </span>
+          </Link>
+        </div>
+      </section>
 
       <ContactSection
-        index="04"
+        index="03"
         title="Kami terbuka untuk diskusi awal dan penjajakan kemitraan."
         note="Silakan jadwalkan percakapan; kami merespons secara terstruktur."
       />

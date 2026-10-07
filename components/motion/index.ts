@@ -7,5 +7,5 @@ export { ScrollText } from "./scroll-text";
 export { ScrollLine } from "./scroll-line";
 export { HorizontalScroll, GalleryImage } from "./horizontal-scroll";
 export { ScrollScale } from "./scroll-scale";
-export { DrawLine } from "./draw-line";
+export { TreeConnectors } from "./tree-connectors";
 export { EASE_LUXE, DURATION } from "./ease";

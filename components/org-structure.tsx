@@ -1,27 +1,29 @@
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
-import { DrawLine, Reveal, RevealGroup, RevealItem } from "./motion";
+import { Reveal, RevealGroup, RevealItem, TreeConnectors } from "./motion";
 
 const { leaders, divisions } = siteConfig.organization;
 
 type Leader = (typeof leaders)["ceo"];
 type Division = (typeof divisions)[number];
 
-/*
- * Desktop connector geometry. Rows use a 3-column grid with a 2rem gap, so:
- * - centre of column 3 sits (100% - 4rem) / 6 from the right edge,
- * - centre of the column 1-2 span sits (100% - 4rem) / 3 + 1rem from the left,
- * - inside that span, column centres sit (100% - 2rem) / 4 from either edge.
- */
-const COL3_FROM_RIGHT = "calc((100% - 4rem) / 6)";
-const SPAN12_FROM_LEFT = "calc((100% - 4rem) / 3 + 1rem)";
-const SPAN_COL_INSET = "calc((100% - 2rem) / 4)";
-
-function LeaderCard({ leader, primary = false }: { leader: Leader; primary?: boolean }) {
+function LeaderCard({
+  leader,
+  id,
+  parent,
+  primary = false,
+}: {
+  leader: Leader;
+  id: string;
+  parent?: string;
+  primary?: boolean;
+}) {
   return (
     <div
+      data-tree-id={id}
+      data-tree-parent={parent}
       className={cn(
-        "relative z-[1] flex w-full max-w-md flex-col items-center gap-3 px-8 py-9 text-center md:px-10",
+        "flex w-full max-w-md flex-col items-center gap-3 px-8 py-9 text-center md:px-10",
         primary ? "bg-surface text-paper" : "border border-accent bg-paper text-ink",
       )}
     >
@@ -39,7 +41,11 @@ function DivisionCard({ division, index }: { division: Division; index: number }
   const reportsTo = leaders[division.reportsTo as keyof typeof leaders];
 
   return (
-    <article className="flex h-full flex-col border border-line bg-paper">
+    <article
+      data-tree-id={`division-${index}`}
+      data-tree-parent={division.reportsTo}
+      className="flex h-full flex-col border border-line bg-paper"
+    >
       <header className="flex flex-col gap-3 border-b border-line p-7 md:p-8">
         <p className="eyebrow flex flex-wrap items-center gap-3 text-stone">
           <span className="text-accent">Divisi {String(index + 1).padStart(2, "0")}</span>
@@ -71,73 +77,39 @@ function DivisionCard({ division, index }: { division: Division; index: number }
 }
 
 /**
- * Company organisation chart. On desktop the reporting lines are drawn as
- * hairlines that animate in; on smaller screens it stacks and each division
- * card states who it reports to.
+ * Company organisation chart. On desktop the reporting lines are one SVG
+ * overlay with rounded elbows that draws itself on scroll; on smaller screens
+ * the cards stack and each division states who it reports to.
  */
 export default function OrgStructure() {
-  const operational = divisions.filter((d) => d.reportsTo === "coo");
-  const direct = divisions.filter((d) => d.reportsTo === "ceo");
-  const ordered = [...operational, ...direct];
+  // Operational divisions sit under Direktur Operasional (columns 1-2),
+  // directly reporting divisions follow (column 3).
+  const ordered = [
+    ...divisions.filter((d) => d.reportsTo === "coo"),
+    ...divisions.filter((d) => d.reportsTo === "ceo"),
+  ];
 
   return (
-    <div className="flex flex-col">
-      {/* Direktur Utama */}
+    <TreeConnectors>
       <Reveal className="flex justify-center">
-        <LeaderCard leader={leaders.ceo} primary />
+        <LeaderCard leader={leaders.ceo} id="ceo" primary />
       </Reveal>
 
-      {/* CEO stem and the bar spanning the operational branch and Human Capital */}
-      <div className="hidden lg:block">
-        <DrawLine axis="y" className="mx-auto h-12 w-px bg-accent" />
-        <div className="relative h-px">
-          <DrawLine
-            axis="x"
-            origin="center"
-            delay={0.2}
-            className="absolute top-0 h-px bg-accent"
-            style={{ left: SPAN12_FROM_LEFT, right: COL3_FROM_RIGHT }}
-          />
-        </div>
-      </div>
-
-      {/* Mobile stem */}
       <div aria-hidden className="mx-auto h-10 w-px bg-accent lg:hidden" />
 
-      {/* Direktur Operasional, with Human Capital's line passing on the right */}
-      <div className="grid gap-8 lg:grid-cols-3">
-        <div className="flex flex-col items-center lg:col-span-2">
-          <DrawLine axis="y" delay={0.35} className="hidden h-12 w-px bg-accent lg:block" />
-          <Reveal className="flex w-full justify-center">
-            <LeaderCard leader={leaders.coo} />
-          </Reveal>
-          <DrawLine axis="y" delay={0.5} className="hidden h-12 w-px bg-accent lg:block" />
-          <div className="relative hidden h-px w-full lg:block">
-            <DrawLine
-              axis="x"
-              origin="center"
-              delay={0.6}
-              className="absolute top-0 h-px bg-accent"
-              style={{ left: SPAN_COL_INSET, right: SPAN_COL_INSET }}
-            />
-          </div>
-        </div>
-        <div className="hidden justify-center lg:flex">
-          <DrawLine axis="y" delay={0.35} className="h-full w-px bg-accent" />
-        </div>
+      <div className="grid gap-8 lg:mt-24 lg:grid-cols-3">
+        <Reveal className="flex justify-center lg:col-span-2">
+          <LeaderCard leader={leaders.coo} id="coo" parent="ceo" />
+        </Reveal>
       </div>
 
-      {/* Divisions */}
-      <RevealGroup className="mt-10 grid gap-8 lg:mt-0 lg:grid-cols-3" stagger={0.15}>
-        {ordered.map((division, index) => (
+      <RevealGroup className="mt-10 grid gap-8 lg:mt-24 lg:grid-cols-3" stagger={0.15}>
+        {ordered.map((division) => (
           <RevealItem key={division.name} className="flex flex-col">
-            <div aria-hidden className="hidden justify-center lg:flex">
-              <span className="h-10 w-px bg-accent" />
-            </div>
-            <DivisionCard division={division} index={index} />
+            <DivisionCard division={division} index={divisions.indexOf(division)} />
           </RevealItem>
         ))}
       </RevealGroup>
-    </div>
+    </TreeConnectors>
   );
 }
