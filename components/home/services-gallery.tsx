@@ -3,25 +3,7 @@ import { siteConfig } from "@/lib/site-config";
 import { GalleryImage, HorizontalScroll } from "@/components/motion/horizontal-scroll";
 import { Reveal } from "@/components/motion";
 import SectionHeading from "@/components/section-heading";
-
-const SERVICE_IMAGES: Record<string, { src: string; alt: string }> = {
-  "sewa-lahan": {
-    src: siteConfig.images.land,
-    alt: "Hamparan lahan terbuka saat matahari terbenam",
-  },
-  "konsultasi-legalitas": {
-    src: siteConfig.images.legal,
-    alt: "Arsitektur putih bersudut tegas di bawah langit cerah",
-  },
-  "jual-beli": {
-    src: siteConfig.images.property,
-    alt: "Hunian modern dengan kolam renang",
-  },
-  "kemitraan-perizinan": {
-    src: siteConfig.images.handshake,
-    alt: "Dua menara kaca menjulang saling berhadapan",
-  },
-};
+import { getServiceImage } from "@/lib/service-images";
 
 export default function ServicesGallery() {
   const services = siteConfig.coreServices;
@@ -45,10 +27,7 @@ export default function ServicesGallery() {
         </div>
 
         {services.map((service, index) => {
-          const image = SERVICE_IMAGES[service.slug] ?? {
-            src: siteConfig.images.hero,
-            alt: "",
-          };
+          const image = getServiceImage(service.slug);
           return (
             <article
               key={service.slug}

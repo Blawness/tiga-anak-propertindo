@@ -1,14 +1,12 @@
+import Link from "next/link";
 import { buildMetadata } from "@/lib/meta";
-import ContactCard from "@/components/contact-card";
+import { siteConfig } from "@/lib/site-config";
+import { getServiceImage } from "@/lib/service-images";
 import PageHero from "@/components/page-hero";
 import Section from "@/components/section";
 import SectionWithImage from "@/components/section-with-image";
-import { siteConfig } from "@/lib/site-config";
-import { FadeIn } from "@/components/motion";
-import Image from "next/image";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import CTAButton from "@/components/cta-button";
+import ContactSection from "@/components/contact-section";
+import { ParallaxImage, RevealGroup, RevealItem } from "@/components/motion";
 
 export const metadata = buildMetadata({
   title: "Layanan",
@@ -19,113 +17,98 @@ export default function LayananPage() {
   const mailto = `mailto:${siteConfig.contact.email}`;
 
   return (
-    <div className="space-y-12 md:space-y-16">
+    <>
       <PageHero
         eyebrow="Layanan"
         title={siteConfig.pages.services.title}
         subtitle={siteConfig.pages.services.subtitle}
         ctaLabel="Hubungi Kami"
         ctaHref={mailto}
+        image={siteConfig.images.property}
+        imageAlt="Hunian modern dengan kolam renang"
       />
 
-      {/* Pilar Layanan - with images */}
       <Section
+        index="01"
+        eyebrow="Layanan"
         title="Pilar layanan"
         description={siteConfig.pages.services.pillarsIntro}
       >
-        <div className="grid gap-6 md:grid-cols-2">
+        <ol className="border-t border-line">
           {siteConfig.coreServices.map((service, index) => {
-            const images = [
-              siteConfig.images.property,
-              siteConfig.images.legal,
-              siteConfig.images.handshake,
-              siteConfig.images.collaboration,
-            ];
+            const image = getServiceImage(service.slug);
             return (
-              <div
-                key={service.title}
-                className="group flex flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
-              >
-                <FadeIn delay={0.05 * index} className="flex h-full flex-col">
-                  {/* Image */}
-                  <div className="relative h-44 shrink-0 overflow-hidden">
-                    <Image
-                      src={images[index]}
-                      alt={service.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
-                    <div className="absolute bottom-4 left-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-sm font-semibold text-brand-primary shadow-sm">
-                      {String(index + 1).padStart(2, "0")}
-                    </div>
-                  </div>
-                  {/* Content */}
-                  <div className="flex flex-1 flex-col gap-3 p-6">
-                    <h3 className="text-xl font-semibold text-slate-900">
+              <li key={service.slug} className="border-b border-line">
+                <Link
+                  href={`/layanan/${service.slug}`}
+                  className="group grid gap-8 py-12 md:grid-cols-12 md:items-center md:gap-8 md:py-16"
+                >
+                  <span className="eyebrow text-stone md:col-span-1">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div className="flex flex-col gap-4 md:col-span-6">
+                    <h3 className="text-h2 transition-colors duration-700 ease-luxe group-hover:text-accent">
                       {service.title}
                     </h3>
-                    <p className="text-base text-slate-600">
-                      {service.shortDescription}
-                    </p>
-                    <div className="mt-auto pt-2">
-                      <CTAButton
-                        href={`/layanan/${service.slug}`}
-                        className="w-full justify-center text-sm"
+                    <p className="max-w-[44ch] text-ink/65">{service.shortDescription}</p>
+                    <span className="eyebrow mt-2 inline-flex items-center gap-3">
+                      <span className="link-underline">Selengkapnya</span>
+                      <span
+                        aria-hidden
+                        className="transition-transform duration-500 ease-luxe group-hover:translate-x-1"
                       >
-                        Selengkapnya
-                      </CTAButton>
-                    </div>
+                        →
+                      </span>
+                    </span>
                   </div>
-                </FadeIn>
-              </div>
+                  <ParallaxImage
+                    src={image.src}
+                    alt={image.alt}
+                    sizes="(max-width: 768px) 100vw, 35vw"
+                    className="aspect-[4/3] md:col-span-4 md:col-start-9"
+                    imageClassName="transition-transform duration-[1.4s] ease-luxe group-hover:scale-105"
+                  />
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ol>
       </Section>
 
-      {/* Pendekatan Operasional - with meeting image */}
       <SectionWithImage
+        index="02"
+        eyebrow="Operasional"
         title="Pendekatan operasional"
         description={siteConfig.about.currentFocus}
         imageSrc={siteConfig.images.meeting}
-        imageAlt="Business meeting and planning session"
+        imageAlt="Rumah modern bermaterial kayu dan beton"
         imagePosition="left"
+        tone="bone"
       >
-        <div className="grid gap-4">
+        <RevealGroup as="ol" className="border-t border-line">
           {siteConfig.about.principles.map((item, index) => (
-            <FadeIn key={item.title} delay={0.05 * index}>
-              <Card className="flex gap-4 border-slate-200 bg-white/90 p-5">
-                <Badge className="h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 text-brand-primary">
-                  {String(index + 1).padStart(2, "0")}
-                </Badge>
-                <div className="flex flex-col gap-1">
-                  <h4 className="text-base font-semibold text-slate-900">
-                    {item.title}
-                  </h4>
-                  <p className="text-sm text-slate-600">{item.description}</p>
-                </div>
-              </Card>
-            </FadeIn>
+            <RevealItem
+              as="li"
+              key={item.title}
+              className="grid grid-cols-[3rem_1fr] gap-x-4 border-b border-line py-6"
+            >
+              <span className="eyebrow pt-1.5 text-stone">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div className="flex flex-col gap-1.5">
+                <h3 className="font-display text-2xl">{item.title}</h3>
+                <p className="text-ink/65">{item.description}</p>
+              </div>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </SectionWithImage>
 
-      {/* Kontak - with office image */}
-      <SectionWithImage
-        title="Kontak"
-        description="Diskusi awal membantu memetakan kebutuhan dan prioritas kolaborasi."
-        imageSrc={siteConfig.images.professional}
-        imageAlt="Professional business environment"
-        imagePosition="right"
-      >
-        <ContactCard
-          email={siteConfig.contact.email}
-          whatsapp={siteConfig.contact.whatsapp}
-          description={siteConfig.pages.contact.availability}
-        />
-      </SectionWithImage>
-    </div>
+      <ContactSection
+        index="03"
+        title="Diskusi awal membantu memetakan kebutuhan dan prioritas kolaborasi."
+        note={siteConfig.pages.contact.availability}
+      />
+    </>
   );
 }
