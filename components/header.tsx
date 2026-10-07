@@ -60,6 +60,7 @@ export default function Header() {
     isActive(href) || Boolean(children?.some((child) => isActive(child.href)));
 
   const overHero = !solid && !isMenuOpen;
+  const lightMark = overHero || isMenuOpen;
 
   return (
     <>
@@ -80,12 +81,28 @@ export default function Header() {
             className="relative z-50 flex items-center gap-3"
             aria-label={`${siteConfig.name}, beranda`}
           >
-            <span className="relative h-8 w-8 overflow-hidden">
+            {/* White mark over the hero / open menu, brand colours once solid.
+                Two stacked images crossfade on opacity only. */}
+            <span className="relative h-8 w-8">
               <Image
                 src="/android-chrome-192x192.png"
                 alt=""
                 fill
-                className="object-cover"
+                className={cn(
+                  "object-contain transition-opacity duration-700 ease-luxe",
+                  lightMark ? "opacity-0" : "opacity-100",
+                )}
+                sizes="32px"
+                priority
+              />
+              <Image
+                src="/logo-mark-white.png"
+                alt=""
+                fill
+                className={cn(
+                  "object-contain transition-opacity duration-700 ease-luxe",
+                  lightMark ? "opacity-100" : "opacity-0",
+                )}
                 sizes="32px"
                 priority
               />
