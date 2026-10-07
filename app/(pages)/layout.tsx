@@ -8,11 +8,18 @@ type PagesLayoutProps = {
 
 export default function PagesLayout({ children }: PagesLayoutProps) {
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="flex min-h-screen flex-col">
+      <a
+        href="#konten"
+        className="eyebrow sr-only z-[60] bg-ink px-4 py-3 text-paper focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        Lewati ke konten
+      </a>
       <Header />
-      <main className="flex-1">{children}</main>
+      <main id="konten" className="flex-1">
+        {children}
+      </main>
       <Footer />
     </div>
   );
 }
-

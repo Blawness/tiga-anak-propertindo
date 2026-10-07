@@ -1,93 +1,76 @@
 import Link from "next/link";
-import Image from "next/image";
 import { siteConfig } from "@/lib/site-config";
-import { FadeIn } from "./motion";
+import CTAButton from "./cta-button";
+import { Reveal } from "./motion";
 
 export default function Footer() {
-  return (
-    <footer className="mt-12 border-t border-slate-200 bg-white">
-      <FadeIn className="section-shell flex flex-col gap-10 py-10 md:flex-row md:justify-between">
-        <div className="flex max-w-xl flex-col gap-4">
-          <div className="flex items-center gap-3">
-            <div className="relative h-11 w-11 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-              <Image
-                src="/android-chrome-192x192.png"
-                alt={siteConfig.name}
-                fill
-                className="object-cover"
-                sizes="44px"
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-semibold uppercase tracking-[0.15em] text-brand-primary">
-                {siteConfig.name}
-              </span>
-              <span className="text-xs text-slate-500">Properti & kemitraan</span>
-            </div>
-          </div>
-          <p className="text-sm leading-relaxed text-slate-600">
-            {siteConfig.description}
-          </p>
-          <p className="text-sm text-slate-500">{siteConfig.tagline}</p>
-        </div>
+  const mailto = `mailto:${siteConfig.contact.email}`;
+  const year = new Date().getFullYear();
 
-        <div className="grid gap-8 text-sm text-slate-600 md:grid-cols-2">
-          <div className="flex flex-col gap-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
-              Navigasi
-            </p>
-            <div className="grid grid-cols-2 gap-2">
+  return (
+    <footer className="relative overflow-hidden bg-ink text-paper">
+      <div className="section-shell pt-28 md:pt-40">
+        <Reveal className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+          <p className="max-w-3xl text-h2">
+            {siteConfig.tagline}
+            <span className="text-bronze">.</span>
+          </p>
+          <CTAButton href={mailto} variant="light" size="lg" className="self-start md:self-auto">
+            Mulai percakapan
+          </CTAButton>
+        </Reveal>
+
+        <div className="mt-24 grid gap-12 border-t border-line-light pt-12 md:grid-cols-12">
+          <p className="text-paper/60 md:col-span-5">{siteConfig.description}</p>
+
+          <nav aria-label="Navigasi footer" className="flex flex-col gap-4 md:col-span-3 md:col-start-7">
+            <span className="eyebrow text-stone">Navigasi</span>
+            <ul className="flex flex-col gap-2">
               {siteConfig.navigation.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-md px-1 py-0.5 transition-colors duration-200 hover:text-brand-primary"
-                >
-                  {item.label}
-                </Link>
+                <li key={item.href}>
+                  <Link href={item.href} className="link-underline text-paper/80 hover:text-paper">
+                    {item.label}
+                  </Link>
+                </li>
               ))}
-            </div>
-          </div>
-          <div className="flex flex-col gap-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
-              Kontak
-            </p>
-            <a
-              href={`mailto:${siteConfig.contact.email}`}
-              className="font-semibold text-slate-900 transition-colors duration-200 hover:text-brand-primary"
-            >
+            </ul>
+          </nav>
+
+          <div className="flex flex-col gap-4 md:col-span-3">
+            <span className="eyebrow text-stone">Kontak</span>
+            <a href={mailto} className="link-underline self-start text-paper/80 hover:text-paper">
               {siteConfig.contact.email}
             </a>
             <a
               href={`https://${siteConfig.contact.website}`}
-              className="font-semibold text-slate-900 transition-colors duration-200 hover:text-brand-primary"
+              className="link-underline self-start text-paper/80 hover:text-paper"
             >
               {siteConfig.contact.website}
             </a>
             {siteConfig.contact.whatsapp ? (
               <a
                 href={`https://wa.me/${siteConfig.contact.whatsapp}`}
-                className="font-semibold text-slate-900 transition-colors duration-200 hover:text-brand-primary"
+                className="link-underline self-start text-paper/80 hover:text-paper"
               >
                 {siteConfig.contact.whatsapp}
               </a>
-            ) : (
-              <p className="text-xs text-slate-500">
-                WhatsApp akan ditambahkan saat tersedia.
-              </p>
-            )}
+            ) : null}
           </div>
         </div>
-      </FadeIn>
-      <div className="border-t border-slate-200 bg-slate-50">
-        <div className="section-shell flex flex-col gap-2 py-4 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <span>
-            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-          </span>
-          <span>Fokus: tata kelola & kemitraan properti.</span>
-        </div>
+      </div>
+
+      <div className="section-shell mt-24 select-none" aria-hidden>
+        <p className="whitespace-nowrap font-display text-[min(9.4vw,8.4rem)] font-light leading-[0.8] tracking-[-0.03em] text-paper/90">
+          Tiga Anak <span className="italic text-bronze">Propertindo</span>
+        </p>
+      </div>
+
+      <div className="section-shell flex flex-col gap-2 border-t border-line-light py-8 text-xs text-stone sm:flex-row sm:items-center sm:justify-between">
+        <span>
+          © {year} {siteConfig.name}
+        </span>
+        <span>Tata kelola &amp; kemitraan properti</span>
       </div>
     </footer>
   );
 }
-

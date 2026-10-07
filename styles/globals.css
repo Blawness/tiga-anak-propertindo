@@ -350,7 +350,7 @@
 }
 
 .page-in {
-  animation: page-in 0.9s var(--ease-luxe) both;
+  animation: page-in 0.9s var(--ease-luxe) backwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
