@@ -16,7 +16,7 @@ type SectionProps = {
 const toneClasses = {
   paper: "bg-paper text-ink",
   bone: "bg-bone text-ink",
-  ink: "bg-ink text-paper",
+  ink: "bg-surface text-paper",
 };
 
 export default function Section({

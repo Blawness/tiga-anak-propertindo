@@ -13,6 +13,11 @@
   --color-sand: #c89957; /* Sand Gold */
   --color-terracotta: #b4651c; /* Terracotta */
 
+  /* Dark surfaces use Deep Brown, never black. sand-soft is the sand-gold
+     tint used for small text on those surfaces (5.4:1). */
+  --color-surface: #5c3a20;
+  --color-sand-soft: #d9b98a;
+
   /* Derived: sand-gold tint for alternating sections, AA-safe muted text */
   --color-bone: #f2eadf;
   --color-stone: #6e6156;

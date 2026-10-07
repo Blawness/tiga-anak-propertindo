@@ -35,12 +35,12 @@ export default function CtaBand({
               reveal={false}
             />
           </div>
-          <div aria-hidden className="absolute inset-0 -z-10 bg-ink/60" />
+          <div aria-hidden className="absolute inset-0 -z-10 bg-surface/70" />
 
           <div className="section-shell flex flex-col items-center gap-8 text-center">
             {eyebrow ? (
               <Reveal y={12}>
-                <p className="eyebrow flex items-center gap-4 text-sand">
+                <p className="eyebrow flex items-center gap-4 text-sand-soft">
                   <span aria-hidden className="h-px w-10 bg-current" />
                   {eyebrow}
                   <span aria-hidden className="h-px w-10 bg-current" />

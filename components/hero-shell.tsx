@@ -36,7 +36,7 @@ export default function HeroShell({ image, imageAlt, children, className }: Hero
   return (
     <section
       ref={ref}
-      className={cn("relative isolate overflow-hidden bg-ink text-paper", className)}
+      className={cn("relative isolate overflow-hidden bg-surface text-paper", className)}
     >
       <motion.div aria-hidden={imageAlt === ""} className="absolute inset-0 -z-10" style={{ y: bgY }}>
         <motion.div
@@ -58,7 +58,7 @@ export default function HeroShell({ image, imageAlt, children, className }: Hero
       </motion.div>
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/90 via-ink/35 to-ink/45"
+        className="absolute inset-0 -z-10 bg-gradient-to-t from-surface/90 via-surface/35 to-surface/50"
       />
 
       <motion.div className="relative h-full" style={{ y: fgY, opacity: fgOpacity }}>

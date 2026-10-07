@@ -184,7 +184,7 @@ export default function Header() {
       <div
         id="mobile-menu"
         className={cn(
-          "fixed inset-0 z-40 flex flex-col bg-ink text-paper transition-opacity duration-700 ease-luxe lg:hidden",
+          "fixed inset-0 z-40 flex flex-col bg-surface text-paper transition-opacity duration-700 ease-luxe lg:hidden",
           isMenuOpen ? "opacity-100" : "pointer-events-none opacity-0",
         )}
         aria-hidden={!isMenuOpen}
@@ -213,7 +213,7 @@ export default function Header() {
                   )}
                   style={{ transitionDelay: isMenuOpen ? `${120 + index * 60}ms` : "0ms" }}
                 >
-                  <span className="eyebrow not-italic text-paper/50">
+                  <span className="eyebrow not-italic text-paper/70">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   {item.label}
@@ -222,7 +222,7 @@ export default function Header() {
             ))}
         </nav>
         <div className="section-shell flex flex-col gap-2 border-t border-line-light py-8">
-          <span className="eyebrow text-paper/50">Kontak</span>
+          <span className="eyebrow text-paper/70">Kontak</span>
           <a href={mailto} className="text-lg">
             {siteConfig.contact.email}
           </a>

@@ -10,7 +10,7 @@ export default function ServicesGallery() {
   const total = String(services.length).padStart(2, "0");
 
   return (
-    <section aria-label="Layanan utama" className="bg-ink text-paper">
+    <section aria-label="Layanan utama" className="bg-surface text-paper">
       <HorizontalScroll trackClassName="lg:items-center">
         {/* Intro panel */}
         <div className="section-shell pb-16 pt-28 md:pt-40 lg:w-[38vw] lg:max-w-none lg:shrink-0 lg:py-0 lg:pl-[clamp(1.25rem,4vw,3rem)] lg:pr-16">
@@ -21,7 +21,7 @@ export default function ServicesGallery() {
             description="Layanan prioritas untuk menyiapkan proyek yang tertata, patuh regulasi, dan siap dieksekusi."
             tone="dark"
           />
-          <p aria-hidden className="eyebrow mt-12 hidden items-center gap-3 text-paper/50 lg:flex">
+          <p aria-hidden className="eyebrow mt-12 hidden items-center gap-3 text-paper/70 lg:flex">
             Gulir <span className="inline-block">→</span>
           </p>
         </div>
@@ -42,7 +42,7 @@ export default function ServicesGallery() {
                 />
 
                 <Reveal className="flex flex-col gap-6" y={24}>
-                  <p className="eyebrow text-sand">
+                  <p className="eyebrow text-sand-soft">
                     {String(index + 1).padStart(2, "0")} / {total}
                   </p>
                   <h3 className="text-h2">{service.title}</h3>

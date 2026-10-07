@@ -83,11 +83,11 @@ export default async function ArtikelDetailPage({ params }: PageProps) {
 
     return (
         <article>
-            <header className="bg-ink pb-[clamp(8rem,18vw,14rem)] pt-36 text-paper md:pt-44">
+            <header className="bg-surface pb-[clamp(8rem,18vw,14rem)] pt-36 text-paper md:pt-44">
                 <div className="section-shell">
                     <Link
                         href="/artikel"
-                        className="eyebrow group inline-flex items-center gap-3 text-paper/60 transition-colors duration-500 ease-luxe hover:text-paper"
+                        className="eyebrow group inline-flex items-center gap-3 text-paper/70 transition-colors duration-500 ease-luxe hover:text-paper"
                     >
                         <span
                             aria-hidden
@@ -107,7 +107,7 @@ export default async function ArtikelDetailPage({ params }: PageProps) {
                         className="mt-10 max-w-[22ch] text-h1"
                     />
 
-                    <p className="eyebrow mt-10 flex flex-wrap items-center gap-3 text-sand">
+                    <p className="eyebrow mt-10 flex flex-wrap items-center gap-3 text-sand-soft">
                         <time dateTime={post.date}>{formatDate(post.date)}</time>
                         {post.author?.node?.name ? (
                             <>

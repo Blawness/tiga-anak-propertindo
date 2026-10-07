@@ -30,7 +30,7 @@ export default function SectionHeading({
           <p
             className={cn(
               "eyebrow flex items-center gap-4",
-              tone === "dark" ? "text-sand" : "text-accent",
+              tone === "dark" ? "text-sand-soft" : "text-accent",
             )}
           >
             {index ? <span>{index}</span> : null}

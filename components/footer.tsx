@@ -8,7 +8,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden bg-ink text-paper">
+    <footer className="relative overflow-hidden bg-surface text-paper">
       <div className="section-shell pt-28 md:pt-40">
         <Reveal className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <p className="max-w-3xl text-h2">
@@ -24,7 +24,7 @@ export default function Footer() {
           <p className="text-paper/60 md:col-span-5">{siteConfig.description}</p>
 
           <nav aria-label="Navigasi footer" className="flex flex-col gap-4 md:col-span-3 md:col-start-7">
-            <span className="eyebrow text-paper/50">Navigasi</span>
+            <span className="eyebrow text-paper/70">Navigasi</span>
             <ul className="flex flex-col gap-2">
               {siteConfig.navigation.map((item) => (
                 <li key={item.href}>
@@ -37,7 +37,7 @@ export default function Footer() {
           </nav>
 
           <div className="flex flex-col gap-4 md:col-span-3">
-            <span className="eyebrow text-paper/50">Kontak</span>
+            <span className="eyebrow text-paper/70">Kontak</span>
             <a href={mailto} className="link-underline self-start text-paper/80 hover:text-paper">
               {siteConfig.contact.email}
             </a>
@@ -65,7 +65,7 @@ export default function Footer() {
         </p>
       </div>
 
-      <div className="section-shell flex flex-col gap-2 border-t border-line-light py-8 text-xs text-paper/50 sm:flex-row sm:items-center sm:justify-between">
+      <div className="section-shell flex flex-col gap-2 border-t border-line-light py-8 text-xs text-paper/70 sm:flex-row sm:items-center sm:justify-between">
         <span>
           © {year} {siteConfig.name}
         </span>
