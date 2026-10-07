@@ -342,6 +342,16 @@
 /* ------------------------------------------------------------------
    Route transition (CSS only, so content paints without waiting for JS)
    ------------------------------------------------------------------ */
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+
 @keyframes page-in {
   from {
     opacity: 0;
@@ -354,7 +364,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-in {
+  .page-in,
+  [class*="animate-[scroll-cue"] {
     animation-name: none;
   }
 

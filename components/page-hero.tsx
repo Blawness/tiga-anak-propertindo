@@ -1,9 +1,8 @@
+import { siteConfig } from "@/lib/site-config";
+import { cn } from "@/lib/utils";
 import CTAButton from "./cta-button";
-import { FadeIn } from "./motion";
-import { Badge } from "./ui/badge";
-
-const HERO_BACKGROUND =
-  "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1600&q=80";
+import HeroShell from "./hero-shell";
+import { Reveal, SplitText } from "./motion";
 
 type PageHeroProps = {
   title: string;
@@ -11,7 +10,9 @@ type PageHeroProps = {
   eyebrow?: string;
   ctaLabel?: string;
   ctaHref?: string;
-  size?: 'default' | 'large';
+  size?: "default" | "large";
+  image?: string;
+  imageAlt?: string;
 };
 
 export default function PageHero({
@@ -20,82 +21,70 @@ export default function PageHero({
   eyebrow,
   ctaLabel,
   ctaHref,
-  size = 'default',
+  size = "default",
+  image = siteConfig.images.hero,
+  imageAlt = "",
 }: PageHeroProps) {
-  const isLarge = size === 'large';
+  const isLarge = size === "large";
 
   return (
-    <section className="relative isolate overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url('${HERO_BACKGROUND}')` }}
-        aria-hidden
-      />
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/70 to-slate-900/40" />
-      <div
-        className="absolute inset-0 opacity-100"
-        style={{
-          backgroundImage: `radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08), transparent 40%), radial-gradient(circle at 80% 20%, rgba(111,55,21,0.16), transparent 35%)`
-        }}
-        aria-hidden
-      />
-
-      <div className={`section-shell relative flex flex-col gap-6 ${isLarge
-        ? "py-24 md:py-32 lg:py-48 min-h-[60vh] justify-center"
-        : "py-16 md:py-20 lg:py-24"
-        }`}>
-        <FadeIn className={`flex flex-col gap-3 ${isLarge ? "md:max-w-4xl" : "md:max-w-3xl"}`}>
-          {eyebrow ? (
-            <Badge className="self-start bg-white/15 text-white ring-1 ring-white/15">
+    <HeroShell
+      image={image}
+      imageAlt={imageAlt}
+      className={isLarge ? "h-[100svh] min-h-[640px]" : "h-[78svh] min-h-[560px]"}
+    >
+      <div className="section-shell flex h-full flex-col justify-end pb-14 pt-32 md:pb-20">
+        {eyebrow ? (
+          <Reveal delay={0.1} y={16} className="mb-8 md:mb-10">
+            <span className="eyebrow flex items-center gap-3 text-paper/80">
+              <span aria-hidden className="h-px w-10 bg-bronze" />
               {eyebrow}
-            </Badge>
-          ) : null}
-          <h1 className={`font-heading font-semibold leading-tight !text-white ${isLarge
-            ? "text-4xl md:text-6xl lg:text-7xl xl:text-8xl"
-            : "text-4xl md:text-5xl lg:text-6xl"
-            }`}>
-            {title}
-          </h1>
-          {subtitle ? (
-            <p className={`text-white/80 ${isLarge
-              ? "text-lg md:text-xl lg:text-2xl max-w-2xl"
-              : "text-base md:text-lg"
-              }`}>{subtitle}</p>
-          ) : null}
-        </FadeIn>
-        {ctaLabel && ctaHref ? (
-          <FadeIn delay={0.05}>
-            <div className="flex flex-wrap gap-4">
-              <CTAButton href={ctaHref} size={isLarge ? "lg" : "md"}>
-                {ctaLabel}
-              </CTAButton>
-            </div>
-          </FadeIn>
+            </span>
+          </Reveal>
         ) : null}
 
-      </div>
+        <SplitText
+          as="h1"
+          text={title}
+          trigger="mount"
+          delay={0.25}
+          stagger={0.07}
+          className={cn(
+            "max-w-[16ch] text-paper",
+            isLarge ? "text-display" : "text-h1",
+          )}
+        />
 
-      {isLarge && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-50 transition-opacity hover:opacity-100">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+        {subtitle || (ctaLabel && ctaHref) ? (
+          <div className="mt-10 grid gap-8 border-t border-line-light pt-8 md:mt-14 md:grid-cols-12 md:items-end">
+            {subtitle ? (
+              <Reveal delay={0.7} y={20} className="md:col-span-6 lg:col-span-5">
+                <p className="text-lead text-paper/75">{subtitle}</p>
+              </Reveal>
+            ) : null}
+            {ctaLabel && ctaHref ? (
+              <Reveal
+                delay={0.85}
+                y={20}
+                className="md:col-span-4 md:col-start-9 md:justify-self-end"
+              >
+                <CTAButton href={ctaHref} variant="light" size={isLarge ? "lg" : "md"}>
+                  {ctaLabel}
+                </CTAButton>
+              </Reveal>
+            ) : null}
+          </div>
+        ) : null}
+
+        {isLarge ? (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-0 right-[clamp(1.25rem,4vw,3rem)] hidden h-24 w-px overflow-hidden bg-line-light md:block"
           >
-            <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-          </svg>
-        </div>
-      )}
-
-      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" aria-hidden />
-
-    </section>
+            <span className="block h-full w-full origin-top animate-[scroll-cue_2.4s_var(--ease-luxe)_infinite] bg-paper" />
+          </div>
+        ) : null}
+      </div>
+    </HeroShell>
   );
 }
-
-
