@@ -47,24 +47,37 @@ export function ParallaxImage({
   const y = useTransform(scrollYProgress, [0, 1], [`${-travel}%`, `${travel}%`]);
   const scale = 1 + (travel * 2.4) / 100;
 
+  // The viewport observer sits on the unclipped frame: Chromium's
+  // IntersectionObserver honours the target's own clip-path, so a fully
+  // clipped element would never report as visible.
   return (
     <motion.div
       ref={ref}
-      className={cn("relative overflow-hidden bg-bone", className)}
-      initial={reveal ? { clipPath: "inset(100% 0% 0% 0%)" } : false}
-      whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
+      className={cn("relative overflow-hidden", className)}
+      initial={reveal ? "hidden" : false}
+      whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: reduce ? 0 : DURATION.slow, ease: EASE_LUXE }}
     >
-      <motion.div className="absolute inset-0" style={{ y, scale }}>
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes={sizes}
-          priority={priority}
-          className={cn("object-cover", imageClassName)}
-        />
+      <motion.div
+        className="absolute inset-0 overflow-hidden bg-bone"
+        variants={{
+          hidden: { clipPath: "inset(100% 0% 0% 0%)" },
+          visible: {
+            clipPath: "inset(0% 0% 0% 0%)",
+            transition: { duration: reduce ? 0 : DURATION.slow, ease: EASE_LUXE },
+          },
+        }}
+      >
+        <motion.div className="absolute inset-0" style={{ y, scale }}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes={sizes}
+            priority={priority}
+            className={cn("object-cover", imageClassName)}
+          />
+        </motion.div>
       </motion.div>
     </motion.div>
   );

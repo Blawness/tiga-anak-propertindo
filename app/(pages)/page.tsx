@@ -3,7 +3,7 @@ import ContactCard from "@/components/contact-card";
 import PageHero from "@/components/page-hero";
 import Section from "@/components/section";
 import SectionWithImage from "@/components/section-with-image";
-import StatCard from "@/components/stat-card";
+import CommitmentSection from "@/components/home/commitment-section";
 import CTAButton from "@/components/cta-button";
 import RoadmapTimeline from "@/components/roadmap-timeline";
 import { siteConfig } from "@/lib/site-config";
@@ -20,7 +20,7 @@ export default function HomePage() {
   const mailto = `mailto:${siteConfig.contact.email}`;
 
   return (
-    <div className="space-y-12 md:space-y-16">
+    <div>
       <PageHero
         title={siteConfig.hero.title}
         subtitle={siteConfig.hero.subtitle}
@@ -31,24 +31,7 @@ export default function HomePage() {
       />
 
 
-      <SectionWithImage
-        title="Komitmen inti kami"
-        description="Pendekatan prudent, transparan, dan patuh regulasi untuk memastikan setiap langkah pengembangan properti memiliki dasar yang kuat."
-        imageSrc={siteConfig.images.building}
-        imageAlt="Modern property building representing our commitment"
-        imagePosition="right"
-      >
-        <div className="grid min-w-0 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {siteConfig.credibility.map((item, index) => (
-            <StatCard
-              key={item.label}
-              label={item.label}
-              value={item.value}
-              primary={index === 0}
-            />
-          ))}
-        </div>
-      </SectionWithImage>
+      <CommitmentSection />
 
       <Section
         title="Layanan utama"
