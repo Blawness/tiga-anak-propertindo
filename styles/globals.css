@@ -180,12 +180,14 @@
   }
 
   /* Text mask used by SplitText */
+  /* Cormorant's descenders (p, y, j, g) drop well below a 0.95 line box, so
+     the mask gets room top and bottom; negative margins keep line spacing. */
   .mask-line {
     display: inline-block;
     overflow: hidden;
     vertical-align: top;
-    padding-bottom: 0.08em;
-    margin-bottom: -0.08em;
+    padding-block: 0.06em 0.24em;
+    margin-block: -0.06em -0.24em;
   }
 
   /* WordPress article content */
