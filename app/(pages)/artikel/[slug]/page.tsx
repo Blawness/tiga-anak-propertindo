@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getPostBySlug, stripHtmlAndTruncate } from "@/lib/wpgraphql";
 import { sanitizeWordPressContent } from "@/lib/sanitize-wp-content";
+import { SplitText } from "@/components/motion";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -81,67 +82,74 @@ export default async function ArtikelDetailPage({ params }: PageProps) {
     }
 
     return (
-        <article className="section-shell py-12 md:py-16">
-            {/* Back link */}
-            <Link
-                href="/artikel"
-                className="mb-8 inline-flex items-center gap-2 text-sm text-slate-600 hover:text-brand-primary transition-colors"
-            >
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                Kembali ke Artikel
-            </Link>
+        <article>
+            <header className="bg-ink pb-[clamp(8rem,18vw,14rem)] pt-36 text-paper md:pt-44">
+                <div className="section-shell">
+                    <Link
+                        href="/artikel"
+                        className="eyebrow group inline-flex items-center gap-3 text-paper/60 transition-colors duration-500 ease-luxe hover:text-paper"
+                    >
+                        <span
+                            aria-hidden
+                            className="transition-transform duration-500 ease-luxe group-hover:-translate-x-1"
+                        >
+                            ←
+                        </span>
+                        Kembali ke artikel
+                    </Link>
 
-            {/* Header */}
-            <header className="mb-8 space-y-4">
-                <h1 className="text-3xl font-bold text-slate-900 md:text-4xl lg:text-5xl">
-                    {post.title}
-                </h1>
+                    <SplitText
+                        as="h1"
+                        text={post.title}
+                        trigger="mount"
+                        delay={0.15}
+                        stagger={0.04}
+                        className="mt-10 max-w-[22ch] text-h1"
+                    />
 
-                <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500">
-                    <time dateTime={post.date}>{formatDate(post.date)}</time>
-                    {post.author?.node?.name && (
-                        <>
-                            <span>•</span>
-                            <span>Oleh {post.author.node.name}</span>
-                        </>
-                    )}
+                    <p className="eyebrow mt-10 flex flex-wrap items-center gap-3 text-bronze">
+                        <time dateTime={post.date}>{formatDate(post.date)}</time>
+                        {post.author?.node?.name ? (
+                            <>
+                                <span aria-hidden className="h-px w-4 bg-current" />
+                                <span>Oleh {post.author.node.name}</span>
+                            </>
+                        ) : null}
+                    </p>
                 </div>
             </header>
 
-            {/* Featured Image */}
-            {post.featuredImage && (
-                <div className="relative mb-10 aspect-video w-full overflow-hidden rounded-2xl bg-slate-100">
-                    <Image
-                        src={post.featuredImage.node.sourceUrl}
-                        alt={post.featuredImage.node.altText || post.title}
-                        fill
-                        sizes="(max-width: 1200px) 100vw, 1200px"
-                        className="object-cover"
-                        priority
-                    />
-                </div>
-            )}
+            <div className="section-shell">
+                {post.featuredImage ? (
+                    <div className="relative -mt-[clamp(6rem,14vw,11rem)] aspect-[16/9] w-full overflow-hidden bg-bone">
+                        <Image
+                            src={post.featuredImage.node.sourceUrl}
+                            alt={post.featuredImage.node.altText || post.title}
+                            fill
+                            sizes="(max-width: 1440px) 100vw, 1344px"
+                            className="object-cover"
+                            priority
+                        />
+                    </div>
+                ) : null}
 
-            {/* Content */}
-            <div
-                className="article-content"
-                dangerouslySetInnerHTML={{ __html: sanitizeWordPressContent(post.content) }}
-            />
+                <div
+                    className="article-content mx-auto max-w-[68ch] py-20 md:py-28"
+                    dangerouslySetInnerHTML={{ __html: sanitizeWordPressContent(post.content) }}
+                />
 
-            {/* Footer */}
-            <footer className="mt-12 border-t border-slate-200 pt-8">
-                <Link
-                    href="/artikel"
-                    className="inline-flex items-center gap-2 text-brand-primary font-medium hover:underline"
-                >
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                    Lihat semua artikel
-                </Link>
-            </footer>
+                <footer className="mx-auto max-w-[68ch] border-t border-line pb-28 pt-10">
+                    <Link href="/artikel" className="eyebrow group inline-flex items-center gap-3">
+                        <span
+                            aria-hidden
+                            className="transition-transform duration-500 ease-luxe group-hover:-translate-x-1"
+                        >
+                            ←
+                        </span>
+                        <span className="link-underline">Lihat semua artikel</span>
+                    </Link>
+                </footer>
+            </div>
         </article>
     );
 }

@@ -1,5 +1,11 @@
 import { siteConfig } from "@/lib/site-config";
-import { ParallaxImage, RevealGroup, RevealItem, ScrollText } from "@/components/motion";
+import {
+  Parallax,
+  ParallaxImage,
+  RevealGroup,
+  RevealItem,
+  ScrollText,
+} from "@/components/motion";
 import SectionHeading from "@/components/section-heading";
 
 const STATEMENT =
@@ -27,26 +33,26 @@ export default function CommitmentSection() {
             />
           </div>
 
-          <RevealGroup
-            as="ol"
-            className="flex flex-col self-end md:col-span-6 md:col-start-7"
-          >
-            {siteConfig.credibility.map((item, index) => (
-              <RevealItem
-                as="li"
-                key={item.label}
-                className="grid grid-cols-[3rem_1fr] gap-x-4 border-t border-line py-8 last:border-b md:grid-cols-[4.5rem_1fr] md:py-10"
-              >
-                <span className="eyebrow pt-2 text-stone">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-h3">{item.label}</h3>
-                  <p className="text-ink/65">{item.value}</p>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
+          {/* Moves against the image for a sense of depth */}
+          <Parallax distance={-140} className="self-end md:col-span-6 md:col-start-7">
+            <RevealGroup as="ol" className="flex flex-col">
+              {siteConfig.credibility.map((item, index) => (
+                <RevealItem
+                  as="li"
+                  key={item.label}
+                  className="grid grid-cols-[3rem_1fr] gap-x-4 border-t border-line py-8 last:border-b md:grid-cols-[4.5rem_1fr] md:py-10"
+                >
+                  <span className="eyebrow pt-2 text-stone">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-h3">{item.label}</h3>
+                    <p className="text-ink/65">{item.value}</p>
+                  </div>
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          </Parallax>
         </div>
       </div>
     </section>

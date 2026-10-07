@@ -14,23 +14,12 @@
   --color-line: rgb(20 18 16 / 0.12);
   --color-line-light: rgb(244 240 234 / 0.18);
 
-  /* Legacy brand tokens kept until every page is migrated */
-  --color-brand-primary: #6f3715;
-  --color-brand-hover: #b1846a;
-  --color-brand-neutral: #737373;
-  --color-brand-black: #191919;
-  --color-brand-paper: #fafafa;
-
   --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
-
-  --breakpoint-3xl: 112rem;
 }
 
 @theme inline {
   --font-display: var(--font-cormorant), "Times New Roman", serif;
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-cormorant), "Times New Roman", serif;
-  --font-body: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* ------------------------------------------------------------------

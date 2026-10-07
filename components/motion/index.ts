@@ -8,6 +8,3 @@ export { ScrollLine } from "./scroll-line";
 export { HorizontalScroll, GalleryImage } from "./horizontal-scroll";
 export { ScrollScale } from "./scroll-scale";
 export { EASE_LUXE, DURATION } from "./ease";
-
-/** @deprecated Temporary alias while pages migrate to <Reveal>. */
-export { Reveal as FadeIn } from "./reveal";
