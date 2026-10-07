@@ -18,6 +18,7 @@ export default function CommitmentSection() {
         <SectionHeading index="01" eyebrow="Komitmen inti kami" />
 
         <ScrollText
+          as="h2"
           text={STATEMENT}
           className="mt-10 max-w-[22ch] font-display text-[clamp(2.25rem,5.6vw,5.5rem)] font-light leading-[1.04] tracking-[-0.02em] md:mt-14"
         />

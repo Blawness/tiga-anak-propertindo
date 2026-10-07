@@ -50,6 +50,7 @@ export default function HeroShell({ image, imageAlt, children, className }: Hero
             alt={imageAlt}
             fill
             priority
+            quality={60}
             sizes="100vw"
             className="object-cover"
           />

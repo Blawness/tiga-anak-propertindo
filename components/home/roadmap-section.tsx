@@ -27,7 +27,7 @@ export default function RoadmapSection() {
                   className="absolute left-0 top-3 h-[0.6875rem] w-[0.6875rem] rotate-45 border border-accent bg-bone"
                 />
                 <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
-                  <span className="font-display text-[clamp(3rem,6vw,5.5rem)] font-light leading-none text-ink/15">
+                  <span aria-hidden className="font-display text-[clamp(3rem,6vw,5.5rem)] font-light leading-none text-ink/15">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span className="eyebrow text-accent">{phase.period}</span>

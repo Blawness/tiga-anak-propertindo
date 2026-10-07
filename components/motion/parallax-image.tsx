@@ -73,6 +73,7 @@ export function ParallaxImage({
             src={src}
             alt={alt}
             fill
+            quality={60}
             sizes={sizes}
             priority={priority}
             className={cn("object-cover", imageClassName)}

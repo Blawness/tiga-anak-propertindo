@@ -153,7 +153,7 @@ function PinnedImage({
   return (
     <div className={cn("relative overflow-hidden bg-bone", className)}>
       <motion.div className="absolute inset-0" style={{ x, scale: 1.25 }}>
-        <Image src={src} alt={alt} fill sizes={sizes} className="object-cover" />
+        <Image src={src} alt={alt} fill quality={60} sizes={sizes} className="object-cover" />
       </motion.div>
     </div>
   );

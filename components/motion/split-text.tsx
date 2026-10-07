@@ -16,7 +16,8 @@ type SplitTextProps = {
 
 /**
  * Masked word-by-word reveal: each word sits in an overflow-hidden mask and
- * slides up from 110%. Screen readers get the whole sentence via aria-label.
+ * slides up from 110%. Screen readers get the whole sentence from a
+ * visually hidden copy, so the split spans stay aria-hidden.
  */
 export function SplitText({
   text,
@@ -41,7 +42,7 @@ export function SplitText({
   const content = lines.map((line, lineIndex) => {
     const words = line.split(" ");
     return (
-      <span key={lineIndex} className="block" aria-hidden>
+      <span key={lineIndex} className="block">
         {words.map((word, i) => {
           const order = wordIndex++;
           return (
@@ -71,8 +72,9 @@ export function SplitText({
   });
 
   return (
-    <Tag className={className} aria-label={text.replace(/\n/g, " ")} {...animateProps}>
-      {content}
+    <Tag className={className} {...animateProps}>
+      <span className="sr-only">{text.replace(/\n/g, " ")}</span>
+      <span aria-hidden>{content}</span>
     </Tag>
   );
 }

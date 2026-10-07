@@ -213,7 +213,7 @@ export default function Header() {
                   )}
                   style={{ transitionDelay: isMenuOpen ? `${120 + index * 60}ms` : "0ms" }}
                 >
-                  <span className="eyebrow text-stone not-italic">
+                  <span className="eyebrow not-italic text-paper/50">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   {item.label}
@@ -222,7 +222,7 @@ export default function Header() {
             ))}
         </nav>
         <div className="section-shell flex flex-col gap-2 border-t border-line-light py-8">
-          <span className="eyebrow text-stone">Kontak</span>
+          <span className="eyebrow text-paper/50">Kontak</span>
           <a href={mailto} className="text-lg">
             {siteConfig.contact.email}
           </a>
