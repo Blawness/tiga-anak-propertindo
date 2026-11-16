@@ -267,7 +267,7 @@ export const siteConfig = {
         reportsTo: "ceo",
         units: [
           { name: "HR & GA", staff: 1 },
-          { name: "Legal Officer", staff: 1 },
+          { name: "Legal Division", staff: 1 },
         ],
       },
     ],
